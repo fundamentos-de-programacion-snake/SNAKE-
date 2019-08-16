@@ -7,16 +7,118 @@
  * l2: Object{x,y}, Object{x,y} => Number
  * Calcula la distancia L2 entre 2 puntos {x,y} 
  */
+/*
+Funciones mover snake
+*/
+
+const moveRight = function(world){
+  if(longitud(world.snake)==1){
+   return cons(obj(first(world.snake).x + 10, first(world.snake).y), rest(world.snake))
+  }else{
+    cons(obj(first(world.snake).x + 10, first(world.snake).y), moveRight(rest(world.snake)));
+  }
+}
+const moveUp = function(world){
+  if(longitud(world.snake)==1){
+   return cons(obj(first(world.snake).x, first(world.snake).y - 10), rest(world.snake))
+  }else{
+    return cons(obj(first(world.snake).x, first(world.snake).y - 10), moveUp(rest(world.snake)))
+  }
+}
+const moveDown = function(world){
+  if(longitud(world.snake)==1){
+  return cons(obj(first(world.snake).x, first(world.snake).y + 10), rest(world.snake));
+  }else{
+    return cons(obj(first(world.snake).x, first(world.snake).y + 10), moveDown(rest(world.snake)));
+  }
+}
+const moveLeft = function(world){
+  if(longitud(world.snake)==1){
+  return cons(obj(first(world.snake).x - 10, first(world.snake).y), rest(world.snake));
+  }else{
+    return cons(obj(first(world.snake).x - 10, first(world.snake).y), moveLeft(rest(world.snake)));
+  }
+}
+const mapObj = function(list,fx){
+  if(isEmpty(list)){
+    return [];
+  }else{
+    return cons(fx(first(list)),mapObj(rest(list),fx));
+  }
+}
+
+const collision = function(list){
+  if(isEmpty(list)){
+    return list;
+  }else if((first(world.snake).x)==(first(rest(list)).x) || ((first(world.snake).y)==(first(rest(list)).y))){
+    return alert("Has perdido.");
+  }else{
+    return collision(rest(list));
+  }
+}
+const longitud = function (list) {
+  if (isEmpty(list)) {
+      return 0;
+  } else {
+      return 1 + longitud(rest(list));
+  }
+}
+const last = function(list){
+  if(isEmpty(list)){
+    return [];
+  }else if(longitud(list)==1){
+    return first(list);
+  }else{
+    return last(rest(list));
+  }
+}
  function l2(a, b) {
   return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
 }
   function make(data, attribute) {
     return Object.assign({}, data, attribute);
   }
+  const addLeft = function(world){
+    return make(world,{foodx: Math.round((Math.random() * 10) / 10) * 800, foody: (Math.round(Math.random() * 10) / 10) * 500,
+      snake: append(world.snake, [{ x: last(world.snake).x + 10,y:last(world.snake).y}])
+  });
+  }
+  const addRight = function(world){
+    return make(world,{foodx: Math.round((Math.random() * 10) / 10) * 800, foody: (Math.round(Math.random() * 10) / 10) * 500,
+      snake: append(world.snake, [{ x: last(world.snake).x - 10,y: last(world.snake).y}])
+  });
+}
+const addDown = function(world){
+  return make(world,{foodx: Math.round((Math.random() * 10) / 10) * 800, foody: (Math.round(Math.random() * 10) / 10) * 500,
+    snake: append(world.snake, [{ x: last(world.snake).x,y: last(world.snake).y-10}])
+});
+}
+const addUp = function(world){
+  return make(world,{foodx: Math.round((Math.random() * 10) / 10) * 800, foody: (Math.round(Math.random() * 10) / 10) * 500,
+    snake: append(world.snake, [{ x: last(world.snake).x,y: last(world.snake).y+10}])
+});
+}
+const takeAdd = function(world){
+  if(l2({x:world.foodx, y: world.foody},{x:first(world.snake).x,y:first(world.snake).y})==0){
+    if(world.ultimaTecla==="izquierda"){
+      return addLeft(world);
+    }else if(world.ultimaTecla=="derecha"){
+      return addRight(world);
+    }else if(world.ultimaTecla=="abajo"){
+      return addDown(world);
+    }else if(world.ultimaTecla=="arriba"){
+      return addUp(world);
+    }else{
+      return make(world,{});
+    }
+  }else{
+    return make(world,{});
+  }
 
+}
  const comer = function(world){
    if(l2({x:world.foodx, y: world.foody},{x:first(world.snake).x,y:first(world.snake).y})==0){
-     return make(world,{foodx: Math.round((Math.random() * 10) / 10) * 800, foody: (Math.round(Math.random() * 10) / 10) * 500});
+     return takeAdd(world);
    }else{
      return make(world,{});
    }
@@ -35,9 +137,6 @@
     }
   }
 
-  function last(x) {
-    return x[length(x) - 1]
-  }
 
   function f(world) {
     return make(world, { TC: true })
@@ -92,16 +191,16 @@
 
     const mover = function (world) {
       if (world.ultimaTecla === "derecha") {
-        return make(world, { snake: cons(obj(first(world.snake).x + 10, first(world.snake).y), rest(world.snake)) });
+        return make(world, { snake: moveRight(world) });
       }
       if (world.ultimaTecla === "arriba") {
-        return make(world, { snake: cons(obj(first(world.snake).x, first(world.snake).y - 10), rest(world.snake)) });
+        return make(world, { snake: moveUp(world) });
       }
       if (world.ultimaTecla === "abajo") {
-        return make(world, { snake: cons(obj(first(world.snake).x, first(world.snake).y + 10), rest(world.snake)) });
+        return make(world, { snake: moveDown(world) });
       }
       if (world.ultimaTecla === "izquierda") {
-        return make(world, { snake: cons(obj(first(world.snake).x - 10, first(world.snake).y), rest(world.snake)) });
+        return make(world, { snake: moveLeft(world) });
       }
     }
 
@@ -109,7 +208,7 @@
     * Actualiza el mundo en cada tic del reloj. Retorna el nuevo stado del mundo
     */
     processing.onTic = function (world) {
-      console.log({x: world.foodx, y: world.foody})
+      console.log(world.snake)
       return comer(mover(world));
     }
 
@@ -118,6 +217,9 @@
 
     // Dibuja algo en el canvas. Aqui se pone todo lo que quieras pintar
     processing.drawGame = function (world) {
+      let pintar = function(obj){
+        return processing.rect(obj.x,obj.y,10,10);
+      }
       processing.background(10, 200, 50);
       processing.fill(0, 0, 0)
       processing.rect(world.foodx, world.foody, world.ancho, world.alto)
@@ -125,6 +227,7 @@
       processing.rect(first(world.snake).x, first(world.snake).y, world.ancho, world.alto);
       processing.textFont(processing.PFont, 18);
       processing.text("Score: " + world.score, 30, 40);
+      mapObj(world.snake,pintar);
     }
 
 
