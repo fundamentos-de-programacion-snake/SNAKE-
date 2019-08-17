@@ -10,57 +10,14 @@
 /*
 Funciones mover snake
 */
-
-const moveRight = function(world){
-  if(longitud(world.snake)==1){
-   return cons(obj(first(world.snake).x + 10, first(world.snake).y), rest(world.snake))
-  }else{
-    cons(obj(first(world.snake).x + 10, first(world.snake).y), moveRight(rest(world.snake)));
-  }
-}
-const moveUp = function(world){
-  if(longitud(world.snake)==1){
-   return cons(obj(first(world.snake).x, first(world.snake).y - 10), rest(world.snake))
-  }else{
-    return cons(obj(first(world.snake).x, first(world.snake).y - 10), moveUp(rest(world.snake)))
-  }
-}
-const moveDown = function(world){
-  if(longitud(world.snake)==1){
-  return cons(obj(first(world.snake).x, first(world.snake).y + 10), rest(world.snake));
-  }else{
-    return cons(obj(first(world.snake).x, first(world.snake).y + 10), moveDown(rest(world.snake)));
-  }
-}
-const moveLeft = function(world){
-  if(longitud(world.snake)==1){
-  return cons(obj(first(world.snake).x - 10, first(world.snake).y), rest(world.snake));
-  }else{
-    return cons(obj(first(world.snake).x - 10, first(world.snake).y), moveLeft(rest(world.snake)));
-  }
-}
-const mapObj = function(list,fx){
-  if(isEmpty(list)){
-    return [];
-  }else{
-    return cons(fx(first(list)),mapObj(rest(list),fx));
-  }
-}
-
-const collision = function(list){
-  if(isEmpty(list)){
-    return list;
-  }else if((first(world.snake).x)==(first(rest(list)).x) || ((first(world.snake).y)==(first(rest(list)).y))){
-    return alert("Has perdido.");
-  }else{
-    return collision(rest(list));
-  }
-}
-const longitud = function (list) {
+const principio = function (list) {
   if (isEmpty(list)) {
-      return 0;
+      return [];
+  }
+  if (longitud(list) == 1) {
+      return [];
   } else {
-      return 1 + longitud(rest(list));
+      return cons(first(list), principio(rest(list)));
   }
 }
 const last = function(list){
@@ -72,6 +29,50 @@ const last = function(list){
     return last(rest(list));
   }
 }
+const moveRight = function(world){
+   return world.x + 10
+}
+const moveUp = function(world){
+   return world.y - 10
+
+}
+const moveDown = function(world){
+  return  world.y + 10
+}
+const moveLeft = function(world){
+  return world.x - 10;
+}
+const mapObjX = function(list,fx){
+    return cons({x: fx(first(list)), y:first(list).y},principio(list));
+}
+const mapObjY = function(list,fx){
+  return cons({x: first(list).x, y: fx(first(list))},principio(list));
+}
+const mapObj = function(list,fx){
+  if(isEmpty(list)){
+    return [];
+  }else{
+    return cons(fx(first(list)),mapObj(rest(list),fx));
+  }
+}
+
+const collision = function(world){
+  if(isEmpty(world.snake) || longitud(world.snake)==1){
+    return make(world,{});
+  }else if((first(world.snake).x)==(first(rest(world.snake)).x) || ((first(world.snake).y)==(first(rest(world.snake)).y))){
+    return alert("Has perdido.");
+  }else{
+    return collision(rest(world.snake));
+  }
+}
+const longitud = function (list) {
+  if (isEmpty(list)) {
+      return 0;
+  } else {
+      return 1 + longitud(rest(list));
+  }
+}
+
  function l2(a, b) {
   return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
 }
@@ -191,16 +192,16 @@ const takeAdd = function(world){
 
     const mover = function (world) {
       if (world.ultimaTecla === "derecha") {
-        return make(world, { snake: moveRight(world) });
+        return make(world, { snake: mapObjX(world.snake,moveRight) });
       }
       if (world.ultimaTecla === "arriba") {
-        return make(world, { snake: moveUp(world) });
+        return make(world, { snake: mapObjY(world.snake,moveUp) });
       }
       if (world.ultimaTecla === "abajo") {
-        return make(world, { snake: moveDown(world) });
+        return make(world, { snake: mapObjY(world.snake,moveDown) });
       }
       if (world.ultimaTecla === "izquierda") {
-        return make(world, { snake: moveLeft(world) });
+        return make(world, { snake: mapObjX(world.snake,moveLeft) });
       }
     }
 
