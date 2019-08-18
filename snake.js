@@ -80,22 +80,22 @@ const longitud = function (list) {
     return Object.assign({}, data, attribute);
   }
   const addLeft = function(world){
-    return make(world,{foodx: Math.round((Math.random() * 10) / 10) * 800, foody: (Math.round(Math.random() * 10) / 10) * 500,
+    return make(world,{score: world.score+1,foodx: Math.round((Math.random() * 10) / 10) * 800, foody: (Math.round(Math.random() * 10) / 10) * 500,
       snake: append(world.snake, [{ x: last(world.snake).x + 10,y:last(world.snake).y}])
   });
   }
   const addRight = function(world){
-    return make(world,{foodx: Math.round((Math.random() * 10) / 10) * 800, foody: (Math.round(Math.random() * 10) / 10) * 500,
+    return make(world,{score: world.score+1,foodx: Math.round((Math.random() * 10) / 10) * 800, foody: (Math.round(Math.random() * 10) / 10) * 500,
       snake: append(world.snake, [{ x: last(world.snake).x - 10,y: last(world.snake).y}])
   });
 }
 const addDown = function(world){
-  return make(world,{foodx: Math.round((Math.random() * 10) / 10) * 800, foody: (Math.round(Math.random() * 10) / 10) * 500,
+  return make(world,{score: world.score+1,foodx: Math.round((Math.random() * 10) / 10) * 800, foody: (Math.round(Math.random() * 10) / 10) * 500,
     snake: append(world.snake, [{ x: last(world.snake).x,y: last(world.snake).y-10}])
 });
 }
 const addUp = function(world){
-  return make(world,{foodx: Math.round((Math.random() * 10) / 10) * 800, foody: (Math.round(Math.random() * 10) / 10) * 500,
+  return make(world,{score: world.score+1,foodx: Math.round((Math.random() * 10) / 10) * 800, foody: (Math.round(Math.random() * 10) / 10) * 500,
     snake: append(world.snake, [{ x: last(world.snake).x,y: last(world.snake).y+10}])
 });
 }
