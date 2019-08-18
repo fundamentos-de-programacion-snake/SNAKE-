@@ -65,6 +65,15 @@ const collision = function(world){
     return collision(rest(world.snake));
   }
 }
+
+function collision2(world){
+  if((first(world.snake).x)>=-20 && (first(world.snake).x)<=1010 && (first(world.snake).y)>=-20 && (first(world.snake).y)<=610){
+    return make(world,{})
+  }else{
+    return alert("Perdio")
+  }
+}
+
 const longitud = function (list) {
   if (isEmpty(list)) {
       return 0;
@@ -203,7 +212,7 @@ const takeAdd = function(world){
     */
     processing.onTic = function (world) {
       console.log(world.snake)
-      return comer(mover(world));
+      return comer(collision2(mover(world)))
     }
 
 
