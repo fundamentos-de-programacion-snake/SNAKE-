@@ -10,6 +10,21 @@
 /*
 Funciones mover snake
 */
+const anchoX=1000;
+const longitudY=600;
+/**
+ * isInside: Object{p0, p1}, Object{x,y} => boolean
+ * Verifica si el punto p se encuentra dentro del rectangulo rect
+ * Ejemplo: 
+ * isInside({p0: {x: 1, y: 1}, p1: {x: 2, y: 3}}, {x: 0, y: 0}) => false
+ * isInside({p0: {x: 1, y: 1}, p1: {x: 2, y: 3}}, {x: 2, y: 2}) => true
+ */
+
+function isInside(rect, p) {
+  return p.x >= rect.p0.x && p.x <= rect.p1.x &&
+    p.y >= rect.p0.y && p.y <= rect.p1.y;
+
+}
 const principio = function (list) {
   if (isEmpty(list)) {
       return [];
@@ -56,21 +71,12 @@ const mapObj = function(list,fx){
   }
 }
 
-const collision = function(world){
-  if(isEmpty(world.snake) || longitud(world.snake)==1){
-    return make(world,{});
-  }else if((first(world.snake).x)==(first(rest(world.snake)).x) || ((first(world.snake).y)==(first(rest(world.snake)).y))){
-    return alert("Has perdido.");
-  }else{
-    return collision(rest(world.snake));
-  }
-}
 
 function collision2(world){
-  if((first(world.snake).x)>=-20 && (first(world.snake).x)<=1010 && (first(world.snake).y)>=-20 && (first(world.snake).y)<=610){
+  if(((first(world.snake).x)>=0 && (first(world.snake).x)<=anchoX) && ((first(world.snake).y)>-10 && (first(world.snake).y)<=longitudY-10)){
     return make(world,{})
   }else{
-    return alert("Perdio")
+    return console.log("Has perdido x: ", first(world.snake).x, " y: ",first(world.snake).y)
   }
 }
 
@@ -163,7 +169,7 @@ const takeAdd = function(world){
      */
     processing.setup = function () {
       processing.frameRate(10);
-      processing.size(1000, 600);
+      processing.size(anchoX,longitudY);
       processing.background(10, 200, 50);
       processing.state = {
         snake: [{ x: 100, y: 100 }], ancho: 10, alto: 10,
@@ -212,7 +218,7 @@ const takeAdd = function(world){
     */
     processing.onTic = function (world) {
       console.log(world.snake)
-      return comer(collision2(mover(world)))
+      return collision2(comer(mover(world)))
     }
 
 
@@ -230,6 +236,7 @@ const takeAdd = function(world){
       processing.rect(first(world.snake).x, first(world.snake).y, world.ancho, world.alto);
       processing.textFont(processing.PFont, 18);
       processing.text("Score: " + world.score, 30, 40);
+      processing.rect(990,0,10,10);
       mapObj(world.snake,pintar);
     }
 
