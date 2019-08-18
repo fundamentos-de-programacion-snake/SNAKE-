@@ -10,7 +10,7 @@
 /*
 Funciones mover snake
 */
-const anchoX=1000;
+const anchoX=990;
 const longitudY=600;
 /**
  * isInside: Object{p0, p1}, Object{x,y} => boolean
@@ -73,10 +73,10 @@ const mapObj = function(list,fx){
 
 
 function collision2(world){
-  if(((first(world.snake).x)>=0 && (first(world.snake).x)<=anchoX) && ((first(world.snake).y)>-10 && (first(world.snake).y)<=longitudY-10)){
+  if(((first(world.snake).x)>=0 && (first(world.snake).x)<=990) && ((first(world.snake).y)>=0 && (first(world.snake).y)<=600)){
     return make(world,{})
   }else{
-    return alert("Has perdido.");
+    return console.log("Has perdido x: ", first(world.snake).x, " y: ",first(world.snake).y)
   }
 }
 
@@ -218,7 +218,7 @@ const takeAdd = function(world){
     */
     processing.onTic = function (world) {
       console.log(world.snake)
-      return collision2(comer(mover(world)))
+      return comer(collision2(mover(world)))
     }
 
 
@@ -236,6 +236,7 @@ const takeAdd = function(world){
       processing.rect(first(world.snake).x, first(world.snake).y, world.ancho, world.alto);
       processing.textFont(processing.PFont, 18);
       processing.text("Score: " + world.score, 30, 40);
+      processing.rect(990,0,10,10);
       mapObj(world.snake,pintar);
     }
 
