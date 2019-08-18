@@ -76,7 +76,7 @@ function collision2(world){
   if(((first(world.snake).x)>=0 && (first(world.snake).x)<=anchoX) && ((first(world.snake).y)>-10 && (first(world.snake).y)<=longitudY-10)){
     return make(world,{})
   }else{
-    return console.log("Has perdido x: ", first(world.snake).x, " y: ",first(world.snake).y)
+    return alert("Has perdido.");
   }
 }
 
@@ -236,7 +236,6 @@ const takeAdd = function(world){
       processing.rect(first(world.snake).x, first(world.snake).y, world.ancho, world.alto);
       processing.textFont(processing.PFont, 18);
       processing.text("Score: " + world.score, 30, 40);
-      processing.rect(990,0,10,10);
       mapObj(world.snake,pintar);
     }
 
