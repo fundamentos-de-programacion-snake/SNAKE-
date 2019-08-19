@@ -1,7 +1,7 @@
  //Vamos a usar http://processingjs.org/
 
-  // Importamos las librerias
-  let { cons, first, isEmpty, isList, length, rest } = functionalLight;
+// Importamos las librerias
+let { cons, first, isEmpty, isList, length, rest } = functionalLight;
 
 /**
  * l2: Object{x,y}, Object{x,y} => Number
@@ -95,22 +95,22 @@ const longitud = function (list) {
     return Object.assign({}, data, attribute);
   }
   const addLeft = function(world){
-    return make(world,{score: world.score+1,foodx: Math.round((Math.random() * 10) / 10) * 800, foody: (Math.round(Math.random() * 10) / 10) * 500,
+    return make(world,{score: world.score+10,foodx: Math.round((Math.random() * 10) / 10) * 800, foody: (Math.round(Math.random() * 10) / 10) * 500,
       snake: append(world.snake, [{ x: last(world.snake).x + 10,y:last(world.snake).y}])
   });
   }
   const addRight = function(world){
-    return make(world,{score: world.score+1,foodx: Math.round((Math.random() * 10) / 10) * 800, foody: (Math.round(Math.random() * 10) / 10) * 500,
+    return make(world,{score: world.score+10,foodx: Math.round((Math.random() * 10) / 10) * 800, foody: (Math.round(Math.random() * 10) / 10) * 500,
       snake: append(world.snake, [{ x: last(world.snake).x - 10,y: last(world.snake).y}])
   });
 }
 const addDown = function(world){
-  return make(world,{score: world.score+1,foodx: Math.round((Math.random() * 10) / 10) * 800, foody: (Math.round(Math.random() * 10) / 10) * 500,
+  return make(world,{score: world.score+10,foodx: Math.round((Math.random() * 10) / 10) * 800, foody: (Math.round(Math.random() * 10) / 10) * 500,
     snake: append(world.snake, [{ x: last(world.snake).x,y: last(world.snake).y-10}])
 });
 }
 const addUp = function(world){
-  return make(world,{score: world.score+1,foodx: Math.round((Math.random() * 10) / 10) * 800, foody: (Math.round(Math.random() * 10) / 10) * 500,
+  return make(world,{score: world.score+10,foodx: Math.round((Math.random() * 10) / 10) * 800, foody: (Math.round(Math.random() * 10) / 10) * 500,
     snake: append(world.snake, [{ x: last(world.snake).x,y: last(world.snake).y+10}])
 });
 }
@@ -159,8 +159,6 @@ const takeAdd = function(world){
   }
 
 
-
-
   function sketchProc(processing) {
 
 
@@ -174,6 +172,9 @@ const takeAdd = function(world){
       processing.state = {
         snake: [{ x: 100, y: 100 }], ancho: 10, alto: 10,
         ultimaTecla: "derecha", score: 0,
+        Obstable1x: 180, Obstacle1y:130, ancho1Obstable: 30, alto1Obstacle: 330,
+        Obstable2x: 460, Obstacle2y:130, ancho2Obstable: 30, alto2Obstacle: 330,
+        Obstable3x: 740, Obstacle3y:130, ancho3Obstable: 30, alto3Obstacle: 330,
         foodx: (Math.round(Math.random() * 10) / 10) * 800, foody: (Math.round(Math.random() * 10) / 10) * 500 
         , TC: false
       };
@@ -237,6 +238,9 @@ const takeAdd = function(world){
       processing.textFont(processing.PFont, 18);
       processing.text("Score: " + world.score, 30, 40);
       processing.rect(990,0,10,10);
+      processing.rect(world.Obstable1x, world.Obstacle1y, world.ancho1Obstable, world.alto1Obstacle);
+      processing.rect(world.Obstable2x, world.Obstacle2y, world.ancho2Obstable, world.alto2Obstacle);
+      processing.rect(world.Obstable3x, world.Obstacle3y, world.ancho3Obstable, world.alto3Obstacle);
       mapObj(world.snake,pintar);
     }
 
@@ -253,9 +257,6 @@ const takeAdd = function(world){
     // No cambie esta función. Su código debe ir en onKeyEvent
     processing.keyPressed = function () {
       processing.state = processing.onKeyEvent(processing.state, processing.keyCode);
-
-
-
     }
   }
 
