@@ -21,8 +21,12 @@ const longitudY=600;
  */
 
 function isInside(rect, p) {
-  return p.x >= rect.p0.x && p.x <= rect.p1.x &&
-    p.y >= rect.p0.y && p.y <= rect.p1.y;
+  if( p.x >= rect.p0.x && p.x <= rect.p1.x &&
+    p.y >= rect.p0.y && p.y <= rect.p1.y){
+      return true;
+  } else {
+    return false;
+  }
 
 }
 const principio = function (list) {
