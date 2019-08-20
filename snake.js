@@ -77,7 +77,7 @@ const mapObj = function(list,fx){
 
 
 function collision2(world){
-  if(((first(world.snake).x)>=0 && (first(world.snake).x)<=990) && ((first(world.snake).y)>=0 && (first(world.snake).y)<=600)){
+  if(((first(world.snake).x)>=0 && (first(world.snake).x)<=980) && ((first(world.snake).y)>=0 && (first(world.snake).y)<=590)){
     if( (isInside({p0:{x:180,y:130},p1:{x:200,y:450}},{x:first(world.snake).x , y:first(world.snake).y}) != true) && (isInside({p0:{x:460,y:130},p1:{x:480,y:450}},{x:first(world.snake).x , y:first(world.snake).y}) != true) && (isInside({p0:{x:740,y:130},p1:{x:760,y:450}},{x:first(world.snake).x , y:first(world.snake).y}) != true)){
       return make(world,{});
     }
@@ -224,8 +224,8 @@ const takeAdd = function(world){
     * Actualiza el mundo en cada tic del reloj. Retorna el nuevo stado del mundo
     */
     processing.onTic = function (world) {
-      console.log(world.snake)
-      return comer(collision2(mover(world)))
+      console.log(world.snake);
+      return comer(collision2(mover(world)));
     }
 
 
@@ -237,16 +237,21 @@ const takeAdd = function(world){
         return processing.rect(obj.x,obj.y,10,10);
       }
       processing.background(10, 200, 50);
-      processing.fill(0, 0, 0)
+      processing.fill(200, 0, 0);
       processing.rect(world.foodx, world.foody, world.ancho, world.alto)
-      processing.fill(240, 240, 240);
+      processing.fill(40, 140, 200);
       processing.rect(first(world.snake).x, first(world.snake).y, world.ancho, world.alto);
-      processing.textFont(processing.PFont, 18);
+      processing.fill(0, 0, 0);
+      processing.textFont(processing.PFont, 20);
       processing.text("Score: " + world.score, 30, 40);
       processing.rect(990,0,10,10);
+      processing.fill(20, 70, 0);
       processing.rect(world.Obstable1x, world.Obstacle1y, world.ancho1Obstable, world.alto1Obstacle);
+      processing.fill(20, 70, 0);
       processing.rect(world.Obstable2x, world.Obstacle2y, world.ancho2Obstable, world.alto2Obstacle);
+      processing.fill(20, 70, 0);
       processing.rect(world.Obstable3x, world.Obstacle3y, world.ancho3Obstable, world.alto3Obstacle);
+      processing.fill(240, 240, 240);
       mapObj(world.snake,pintar);
     }
 
