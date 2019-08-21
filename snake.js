@@ -12,6 +12,8 @@ Funciones mover snake
 */
 const anchoX=990;
 const longitudY=600;
+
+
 /**
  * isInside: Object{p0, p1}, Object{x,y} => boolean
  * Verifica si el punto p se encuentra dentro del rectangulo rect
@@ -85,16 +87,21 @@ function collision2(world){
     return console.log("Has perdido x: ", first(world.snake).x, " y: ",first(world.snake).y);
   }
 } 
-const collisionSnake = function(world){
-  if(length(world.snake)>4){
-    if(first(world.snake).x == first(rest(world.snake)).x && first(world.snake).y == first(rest(world.snake)).y){
-      return console.log("Has perdido.");
+const collisionSnake = function(primero,list,world){
+    if(isEmpty(list)){
+      return make(world,{});
     }else{
-      return collisionSnake(rest(world.snake))
+    if(length(list)==1){
+     return make(world,{});
+    }else{
+      if((primero.x == first(rest(list)).x) && (primero.y == first(rest(list)).y)){
+        return console.log("Has perdido x: ",primero.x, " y: ",primero.y," x2: ",first(rest(list)).x, " y2: ",first(rest(list)).y);
+    }else{
+      return collisionSnake(primero,rest(list),world);
     }
-  }else{
-    return make(world,{});
+    //
   }
+}
 }
 const longitud = function (list) {
   if (isEmpty(list)) {
@@ -173,18 +180,15 @@ const takeAdd = function(world){
   function f(world) {
     return make(world, { TC: true })
   }
-
-
   function sketchProc(processing) {
-
-
+    var img=processing.loadImage('./onix.png');
     /**
      * Esto se llama antes de iniciar el juego
      */
     processing.setup = function () {
       processing.frameRate(10);
       processing.size(anchoX,longitudY);
-      processing.background(10, 200, 50);
+      processing.background(10,200,50);
       processing.state = {
         snake: [{ x: 100, y: 100 }], ancho: 10, alto: 10,
         ultimaTecla: "derecha", score: 0,
@@ -233,7 +237,7 @@ const takeAdd = function(world){
     * Actualiza el mundo en cada tic del reloj. Retorna el nuevo stado del mundo
     */
     processing.onTic = function (world) {
-      return comer(collisionSnake(collision2((mover(world)))));
+      return comer(mover(collision2(collisionSnake(first(world.snake),world.snake,world))));
     }
 
 
@@ -244,7 +248,8 @@ const takeAdd = function(world){
       let pintar = function(obj){
         return processing.rect(obj.x,obj.y,10,10);
       }
-      processing.background(10, 200, 50);
+      
+      processing.background(10,200,50);
       processing.fill(200, 0, 0);
       processing.rect(world.foodx, world.foody, world.ancho, world.alto)
       processing.fill(40, 140, 200);
