@@ -84,8 +84,18 @@ function collision2(world){
   }else{
     return console.log("Has perdido x: ", first(world.snake).x, " y: ",first(world.snake).y);
   }
+} 
+const collisionSnake = function(world){
+  if(length(world.snake)>4){
+    if(first(world.snake).x == first(rest(world.snake)).x && first(world.snake).y == first(rest(world.snake)).y){
+      return console.log("Has perdido.");
+    }else{
+      return collisionSnake(rest(world.snake))
+    }
+  }else{
+    return make(world,{});
+  }
 }
-
 const longitud = function (list) {
   if (isEmpty(list)) {
       return 0;
@@ -190,7 +200,6 @@ const takeAdd = function(world){
     * Actualiza el mundo cada vez que se oprime una tecla. Retorna el nuevo stado del mundo
     */
     processing.onKeyEvent = function (world, keyCode) {
-      console.log(world.snake)
       if(keyCode == processing.UP && world.ultimaTecla != "abajo"){
         return make(world,{ultimaTecla: "arriba"})
       }else if(keyCode == processing.DOWN && world.ultimaTecla != "arriba"){
@@ -224,8 +233,7 @@ const takeAdd = function(world){
     * Actualiza el mundo en cada tic del reloj. Retorna el nuevo stado del mundo
     */
     processing.onTic = function (world) {
-      console.log(world.snake);
-      return comer(collision2(mover(world)));
+      return comer(collisionSnake(collision2((mover(world)))));
     }
 
 
