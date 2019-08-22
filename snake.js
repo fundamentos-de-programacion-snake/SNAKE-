@@ -82,9 +82,11 @@ function collision2(world){
   if(((first(world.snake).x)>=0 && (first(world.snake).x)<=980) && ((first(world.snake).y)>=0 && (first(world.snake).y)<=590)){
     if( (isInside({p0:{x:180,y:130},p1:{x:200,y:450}},{x:first(world.snake).x , y:first(world.snake).y}) != true) && (isInside({p0:{x:460,y:130},p1:{x:480,y:450}},{x:first(world.snake).x , y:first(world.snake).y}) != true) && (isInside({p0:{x:740,y:130},p1:{x:760,y:450}},{x:first(world.snake).x , y:first(world.snake).y}) != true)){
       return make(world,{});
+    }else{
+      return alert("Perdiste")
     }
   }else{
-    return console.log("Has perdido x: ", first(world.snake).x, " y: ",first(world.snake).y);
+    return alert("Perdiste");
   }
 } 
 const collisionSnake = function(primero,list,world){
@@ -95,7 +97,7 @@ const collisionSnake = function(primero,list,world){
      return make(world,{});
     }else{
       if((primero.x == first(rest(list)).x) && (primero.y == first(rest(list)).y)){
-        return console.log("Has perdido x: ",primero.x, " y: ",primero.y," x2: ",first(rest(list)).x, " y2: ",first(rest(list)).y);
+        return alert("Perdiste");
     }else{
       return collisionSnake(primero,rest(list),world);
     }
