@@ -184,7 +184,7 @@ const takeAdd = function(world){
     return make(world, { TC: true })
   }
   function sketchProc(processing) {
-    var img=processing.loadImage('./onix.png');
+   var img2 = processing.loadImage('onix.jpg')
     /**
      * Esto se llama antes de iniciar el juego
      */
@@ -251,9 +251,13 @@ const takeAdd = function(world){
       let pintar = function(obj){
         return processing.rect(obj.x,obj.y,10,10);
       }
+      let pintarImg = function(imagen,x,y,width,height){
+        return processing.image(imagen, x, y, width, height);
+      }
       
       processing.background(10,200,50);
       processing.fill(200, 0, 0);
+      pintarImg(img2,0,0,990,600);
       processing.rect(world.foodx, world.foody, world.ancho, world.alto)
       processing.fill(40, 140, 200);
       processing.rect(first(world.snake).x, first(world.snake).y, world.ancho, world.alto);
@@ -269,6 +273,8 @@ const takeAdd = function(world){
       processing.rect(world.Obstable3x, world.Obstacle3y, world.ancho3Obstable, world.alto3Obstacle);
       processing.fill(240, 240, 240);
       mapObj(world.snake,pintar);
+      
+      
     }
 
 
