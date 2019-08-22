@@ -99,7 +99,6 @@ const collisionSnake = function(primero,list,world){
     }else{
       return collisionSnake(primero,rest(list),world);
     }
-    //
   }
 }
 }
@@ -156,11 +155,15 @@ const takeAdd = function(world){
 
 }
  const comer = function(world){
+   if((isInside({p0:{x:180,y:130},p1:{x:200,y:450}},{x:world.foodx , y:world.foody}) == true) || (isInside({p0:{x:460,y:130},p1:{x:480,y:450}},{x:world.foodx , y:world.foody}) == true) || (isInside({p0:{x:740,y:130},p1:{x:760,y:450}},{x:world.foodx , y:world.foody}) == true)){
+      return make(world,{foodx: (Math.round(Math.random() * 10) / 10) * 800, foody: (Math.round(Math.random() * 10) / 10) * 500})
+   }else{
    if(l2({x:world.foodx, y: world.foody},{x:first(world.snake).x,y:first(world.snake).y})==0){
      return takeAdd(world);
    }else{
      return make(world,{});
    }
+  }
  }
   function obj(x, y) {
     return { x, y }
