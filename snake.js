@@ -12,8 +12,9 @@ Funciones mover snake
 */
 const anchoX=990;
 const longitudY=600;
-
-
+const cols = (anchoX-10)/10;
+const rows = (longitudY-10)/10;
+ 
 /**
  * isInside: Object{p0, p1}, Object{x,y} => boolean
  * Verifica si el punto p se encuentra dentro del rectangulo rect
@@ -30,6 +31,12 @@ function isInside(rect, p) {
     return false;
   }
 
+}
+const posFoodX = function(){
+  return (Math.round(Math.random() * cols))*10
+}
+const posFoodY = function(){
+  return (Math.round(Math.random() * rows))*10
 }
 const principio = function (list) {
   if (isEmpty(list)) {
@@ -119,22 +126,22 @@ const longitud = function (list) {
     return Object.assign({}, data, attribute);
   }
   const addLeft = function(world){
-    return make(world,{score: world.score+10,foodx: Math.round((Math.random() * 10) / 10) * 800, foody: (Math.round(Math.random() * 10) / 10) * 500,
+    return make(world,{score: world.score+10,foodx: posFoodX(), foody:posFoodY(),
       snake: append(world.snake, [{ x: last(world.snake).x + 10,y:last(world.snake).y}])
   });
   }
   const addRight = function(world){
-    return make(world,{score: world.score+10,foodx: Math.round((Math.random() * 10) / 10) * 800, foody: (Math.round(Math.random() * 10) / 10) * 500,
+    return make(world,{score: world.score+10,foodx: posFoodX(), foody:posFoodY(),
       snake: append(world.snake, [{ x: last(world.snake).x - 10,y: last(world.snake).y}])
   });
 }
 const addDown = function(world){
-  return make(world,{score: world.score+10,foodx: Math.round((Math.random() * 10) / 10) * 800, foody: (Math.round(Math.random() * 10) / 10) * 500,
+  return make(world,{score: world.score+10,foodx: posFoodX(), foody: posFoodY(),
     snake: append(world.snake, [{ x: last(world.snake).x,y: last(world.snake).y-10}])
 });
 }
 const addUp = function(world){
-  return make(world,{score: world.score+10,foodx: Math.round((Math.random() * 10) / 10) * 800, foody: (Math.round(Math.random() * 10) / 10) * 500,
+  return make(world,{score: world.score+10,foodx: posFoodX(), foody: posFoodY(),
     snake: append(world.snake, [{ x: last(world.snake).x,y: last(world.snake).y+10}])
 });
 }
@@ -158,7 +165,7 @@ const takeAdd = function(world){
 }
  const comer = function(world){
    if((isInside({p0:{x:180,y:130},p1:{x:200,y:450}},{x:world.foodx , y:world.foody}) == true) || (isInside({p0:{x:460,y:130},p1:{x:480,y:450}},{x:world.foodx , y:world.foody}) == true) || (isInside({p0:{x:740,y:130},p1:{x:760,y:450}},{x:world.foodx , y:world.foody}) == true)){
-      return make(world,{foodx: (Math.round(Math.random() * 10) / 10) * 800, foody: (Math.round(Math.random() * 10) / 10) * 500})
+      return make(world,{foodx: posFoodX(), foody: posFoodY()})
    }else{
    if(l2({x:world.foodx, y: world.foody},{x:first(world.snake).x,y:first(world.snake).y})==0){
      return takeAdd(world);
@@ -206,7 +213,7 @@ const takeAdd = function(world){
         borde5x: 0,borde5y : 590,borde5ancho : 990,bordealto5 : 10,
         cuadro1x : 400,cuadro1y :0,cuadro1ancho : 10,cuadro1alto : 10,
         cuadro2x : 445,cuadro2y :0,cuadro2ancho : 10,cuadro2alto : 10,
-        foodx: (Math.round(Math.random() * 10) / 10) * 800, foody: (Math.round(Math.random() * 10) / 10) * 500 
+        foodx: posFoodX(), foody: posFoodX()
         , TC: false
       };
     }
@@ -265,7 +272,7 @@ const takeAdd = function(world){
       
       processing.background(10,200,50);
       processing.fill(200, 0, 0);
-      pintarImg(img2,0,0,990,600);
+      //pintarImg(img2,0,0,990,600);
       processing.rect(world.foodx, world.foody, world.ancho, world.alto)
       processing.fill(40, 140, 200);
       processing.rect(first(world.snake).x, first(world.snake).y, world.ancho, world.alto);
