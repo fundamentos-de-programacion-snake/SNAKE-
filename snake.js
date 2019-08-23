@@ -33,10 +33,10 @@ function isInside(rect, p) {
 
 }
 const posFoodX = function(){
-  return (Math.round(Math.random() * cols))*10
+  return (Math.round(Math.random() * cols)*10)
 }
 const posFoodY = function(){
-  return (Math.round(Math.random() * rows))*10
+  return (Math.round(Math.random() * rows)*10)
 }
 const principio = function (list) {
   if (isEmpty(list)) {
@@ -86,14 +86,18 @@ const mapObj = function(list,fx){
 
 
 function collision2(world){
-  if(((first(world.snake).x)>=0 && (first(world.snake).x)<=980) && ((first(world.snake).y)>=0 && (first(world.snake).y)<=590)){
+  if(((first(world.snake).x)>=10 &&  (first(world.snake).y)>=10 && (first(world.snake).y)<=580)){
     if( (isInside({p0:{x:180,y:130},p1:{x:200,y:450}},{x:first(world.snake).x , y:first(world.snake).y}) != true) && (isInside({p0:{x:460,y:130},p1:{x:480,y:450}},{x:first(world.snake).x , y:first(world.snake).y}) != true) && (isInside({p0:{x:740,y:130},p1:{x:760,y:450}},{x:first(world.snake).x , y:first(world.snake).y}) != true)){
       return make(world,{});
     }else{
       return alert("Perdiste")
     }
   }else{
-    return alert("Perdiste");
+    if(first(world.snake).y<10 && first(world.snake).x>=400 && first(world.snake).x <=445 ){
+      return make(world,{});
+    }else{
+      return alert("Perdiste")
+    }
   }
 } 
 const collisionSnake = function(primero,list,world){
@@ -213,7 +217,7 @@ const takeAdd = function(world){
         borde5x: 0,borde5y : 590,borde5ancho : 990,bordealto5 : 10,
         cuadro1x : 400,cuadro1y :0,cuadro1ancho : 10,cuadro1alto : 10,
         cuadro2x : 445,cuadro2y :0,cuadro2ancho : 10,cuadro2alto : 10,
-        foodx: posFoodX(), foody: posFoodX()
+        foodx: (Math.round(Math.random() * cols)*10), foody: (Math.round(Math.random() * rows)*10) 
         , TC: false
       };
     }
@@ -255,6 +259,7 @@ const takeAdd = function(world){
     * Actualiza el mundo en cada tic del reloj. Retorna el nuevo stado del mundo
     */
     processing.onTic = function (world) {
+      console.log("x: ",first(world.snake).x, " y: ",first(world.snake).y)
       return comer(mover(collision2(collisionSnake(first(world.snake),world.snake,world))));
     }
 
