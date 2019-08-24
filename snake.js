@@ -1,4 +1,4 @@
- //Vamos a usar http://processingjs.org/
+//Vamos a usar http://processingjs.org/
 
 // Importamos las librerias
 let { cons, first, isEmpty, isList, length, rest } = functionalLight;
@@ -12,8 +12,7 @@ Funciones mover snake
 */
 const anchoX=990;
 const longitudY=600;
-const cols = (anchoX-10)/10;
-const rows = (longitudY-10)/10;
+
  
 /**
  * isInside: Object{p0, p1}, Object{x,y} => boolean
@@ -32,12 +31,22 @@ function isInside(rect, p) {
   }
 
 }
+
+const movementOutScreenUp = function(world){
+  return make(world, {snake: cons({x: 980 , y: 280 },principio(world.snake)),ultimaTecla: "izquierda"})
+}
+
+const movementOutScreenRight = function(world){
+  return make(world, {snake: cons({x: 422, y: 10},principio(world.snake)), ultimaTecla: "abajo"})
+}
+
 const posFoodX = function(){
-  return (Math.round(Math.random() * cols))*10
+  return (Math.round(Math.random() * 10) / 10) * 980
 }
 const posFoodY = function(){
-  return (Math.round(Math.random() * rows))*10
+  return (Math.round(Math.random() * 10) / 10) * 580
 }
+
 const principio = function (list) {
   if (isEmpty(list)) {
       return [];
@@ -83,17 +92,29 @@ const mapObj = function(list,fx){
     return cons(fx(first(list)),mapObj(rest(list),fx));
   }
 }
+const outOfScreenRight = function(world){
+  if(first(world.snake).x >= 980 && world.ultimaTecla == "derecha"){
+    return movementOutScreenRight(world);
+  }else{
+    return make(world,{});
+  }
+}
 
+const OutOfScreenUp = function(world){
+  if(first(world.snake).y<10 && first(world.snake).x>=400 && first(world.snake).x <=445 ){
+    return movementOutScreenUp(world);
+  }else{
+    return make(world,{});  
+  }
+}
 
 function collision2(world){
-  if(((first(world.snake).x)>=0 && (first(world.snake).x)<=980) && ((first(world.snake).y)>=0 && (first(world.snake).y)<=590)){
+  if(((first(world.snake).x)>=10 &&  (first(world.snake).y)>=10 && (first(world.snake).y)<=580)){
     if( (isInside({p0:{x:180,y:130},p1:{x:200,y:450}},{x:first(world.snake).x , y:first(world.snake).y}) != true) && (isInside({p0:{x:460,y:130},p1:{x:480,y:450}},{x:first(world.snake).x , y:first(world.snake).y}) != true) && (isInside({p0:{x:740,y:130},p1:{x:760,y:450}},{x:first(world.snake).x , y:first(world.snake).y}) != true)){
       return make(world,{});
     }else{
       return alert("Perdiste")
     }
-  }else{
-    return alert("Perdiste");
   }
 } 
 const collisionSnake = function(primero,list,world){
@@ -164,7 +185,7 @@ const takeAdd = function(world){
 
 }
  const comer = function(world){
-   if((isInside({p0:{x:180,y:130},p1:{x:200,y:450}},{x:world.foodx , y:world.foody}) == true) || (isInside({p0:{x:460,y:130},p1:{x:480,y:450}},{x:world.foodx , y:world.foody}) == true) || (isInside({p0:{x:740,y:130},p1:{x:760,y:450}},{x:world.foodx , y:world.foody}) == true)){
+   if((isInside({p0:{x:180,y:130},p1:{x:200,y:450}},{x:world.foodx , y:world.foody}) == true) || (isInside({p0:{x:460,y:130},p1:{x:480,y:450}},{x:world.foodx , y:world.foody}) == true) || (isInside({p0:{x:740,y:130},p1:{x:760,y:450}},{x:world.foodx , y:world.foody}) == true ) ||  (isInside({p0:{x:0,y:0},p1:{x:10,y:600}},{x:world.foodx , y:world.foody}) == true)||  (isInside({p0:{x:0,y:0},p1:{x:400,y:10}},{x:world.foodx , y:world.foody} )== true) ||  (isInside({p0:{x:450,y:0},p1:{x:990,y:10}},{x:world.foodx , y:world.foody}) == true) ||  (isInside({p0:{x:0,y:590},p1:{x:990,y:10}},{x:world.foodx , y:world.foody}) == true)){
       return make(world,{foodx: posFoodX(), foody: posFoodY()})
    }else{
    if(l2({x:world.foodx, y: world.foody},{x:first(world.snake).x,y:first(world.snake).y})==0){
@@ -193,9 +214,7 @@ const takeAdd = function(world){
     return make(world, { TC: true })
   }
   function sketchProc(processing) {
-   var img2 = processing.loadImage('piso.jpg');
-   var img1 = processing.loadImage('madera.jpg');
-
+   var img2 = processing.loadImage('onix.jpg')
     /**
      * Esto se llama antes de iniciar el juego
      */
@@ -213,9 +232,7 @@ const takeAdd = function(world){
         borde3x: 0,borde3y : 0,borde3ancho : 400,bordealto3 : 10,
         borde4x: 450,borde4y : 0,borde4ancho : 550,bordealto4 : 10,
         borde5x: 0,borde5y : 590,borde5ancho : 990,bordealto5 : 10,
-        cuadro1x : 400,cuadro1y :0,cuadro1ancho : 10,cuadro1alto : 10,
-        cuadro2x : 445,cuadro2y :0,cuadro2ancho : 10,cuadro2alto : 10,
-        foodx: posFoodX(), foody: posFoodY()
+        foodx: (Math.round(Math.random() * 10) / 10) * 980, foody:(Math.round(Math.random() * 10) / 10) * 580 
         , TC: false
       };
     }
@@ -257,7 +274,8 @@ const takeAdd = function(world){
     * Actualiza el mundo en cada tic del reloj. Retorna el nuevo stado del mundo
     */
     processing.onTic = function (world) {
-      return comer(mover(collision2(collisionSnake(first(world.snake),world.snake,world))));
+      console.log("x: ",first(world.snake).x, " y: ",first(world.snake).y)
+      return comer(mover(collision2(OutOfScreenUp(outOfScreenRight(collisionSnake(first(world.snake),world.snake,world))))));
     }
 
 
@@ -268,23 +286,18 @@ const takeAdd = function(world){
       let pintar = function(obj){
         return processing.rect(obj.x,obj.y,10,10);
       }
-      let pintarImg2 = function(imagen,x,y,width,height){
+      let pintarImg = function(imagen,x,y,width,height){
         return processing.image(imagen, x, y, width, height);
       }
-
-      let pintarImg1 = function(imagen,x,y,width,height){
-        return processing.image(imagen, x, y, width, height);
-      }
-      let pintarImg3 = function(imagen,x,y,width,height){
-        return processing.image(imagen, x, y, width, height);
-      }
-
+      
       processing.background(10,200,50);
       processing.fill(200, 0, 0);
-      pintarImg2(img2,0,0,990,600);
+      //pintarImg(img2,0,0,990,600);
       processing.rect(world.foodx, world.foody, world.ancho, world.alto)
       processing.fill(40, 140, 200);
       processing.rect(first(world.snake).x, first(world.snake).y, world.ancho, world.alto);
+      //processing.rect(980,280,10,10);
+      //processing.rect(422,0,10,10)
       processing.fill(0, 0, 0);
       processing.textFont(processing.PFont, 20);
       processing.text("Score: " + world.score, 30, 40);
@@ -292,13 +305,10 @@ const takeAdd = function(world){
       processing.fill(20, 70, 0);
       processing.rect(world.Obstable1x, world.Obstacle1y, world.ancho1Obstable, world.alto1Obstacle);
       processing.fill(20, 70, 0);
-      pintarImg1(img1,180,130,30,330);
       processing.rect(world.Obstable2x, world.Obstacle2y, world.ancho2Obstable, world.alto2Obstacle);
       processing.fill(20, 70, 0);
-      pintarImg1(img1,460,130,30,330);
       processing.rect(world.Obstable3x, world.Obstacle3y, world.ancho3Obstable, world.alto3Obstacle);
       processing.fill(20, 70, 0);
-      pintarImg1(img1,740,130,30,330);
       processing.rect(world.borde1x,world.borde1y,world.borde1ancho,world.bordealto1);
       processing.fill(20, 70, 0);
       processing.rect(world.borde3x,world.borde3y,world.borde3ancho,world.bordealto3);
@@ -315,7 +325,7 @@ const takeAdd = function(world){
       
       
     }
-
+   
 
 
     // Esta es la función que pinta todo. Se ejecuta 60 veces por segundo. 
