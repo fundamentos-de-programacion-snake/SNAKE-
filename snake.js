@@ -32,11 +32,19 @@ function isInside(rect, p) {
   }
 
 }
+
+const movementOutScreenUp = function(world){
+  return make(world, {snake: cons({x: 980 , y: 280 },principio(world.snake)),ultimaTecla: "izquierda"})
+}
+
+const movementOutScreenRight = function(world){
+  return make(world, {snake: cons({x: 422, y: 10},principio(world.snake)), ultimaTecla: "abajo"})
+}
 const posFoodX = function(){
-  return (Math.round(Math.random() * cols)*10)
+  return (Math.round(Math.random() * rows)*10)
 }
 const posFoodY = function(){
-  return (Math.round(Math.random() * rows)*10)
+  return (Math.round(Math.random() * cols)*10)
 }
 const principio = function (list) {
   if (isEmpty(list)) {
@@ -83,17 +91,25 @@ const mapObj = function(list,fx){
     return cons(fx(first(list)),mapObj(rest(list),fx));
   }
 }
+const outOfScreenRight = function(world){
+  if(first(world.snake).x >= 980 && world.ultimaTecla == "derecha"){
+    return movementOutScreenRight(world);
+  }else{
+    return make(world,{});
+  }
+}
 
+const OutOfScreenUp = function(world){
+  if(first(world.snake).y<10 && first(world.snake).x>=400 && first(world.snake).x <=445 ){
+    return movementOutScreenUp(world);
+  }else{
+    return make(world,{});  
+  }
+}
 
 function collision2(world){
   if(((first(world.snake).x)>=10 &&  (first(world.snake).y)>=10 && (first(world.snake).y)<=580)){
     if( (isInside({p0:{x:180,y:130},p1:{x:200,y:450}},{x:first(world.snake).x , y:first(world.snake).y}) != true) && (isInside({p0:{x:460,y:130},p1:{x:480,y:450}},{x:first(world.snake).x , y:first(world.snake).y}) != true) && (isInside({p0:{x:740,y:130},p1:{x:760,y:450}},{x:first(world.snake).x , y:first(world.snake).y}) != true)){
-      return make(world,{});
-    }else{
-      return alert("Perdiste")
-    }
-  }else{
-    if(first(world.snake).y<10 && first(world.snake).x>=400 && first(world.snake).x <=445 ){
       return make(world,{});
     }else{
       return alert("Perdiste")
@@ -217,7 +233,7 @@ const takeAdd = function(world){
         borde5x: 0,borde5y : 590,borde5ancho : 990,bordealto5 : 10,
         cuadro1x : 400,cuadro1y :0,cuadro1ancho : 10,cuadro1alto : 10,
         cuadro2x : 445,cuadro2y :0,cuadro2ancho : 10,cuadro2alto : 10,
-        foodx: (Math.round(Math.random() * cols)*10), foody: (Math.round(Math.random() * rows)*10) 
+        foodx: (Math.round(Math.random() * rows)*10), foody: (Math.round(Math.random() * cols)*10) 
         , TC: false
       };
     }
@@ -260,7 +276,7 @@ const takeAdd = function(world){
     */
     processing.onTic = function (world) {
       console.log("x: ",first(world.snake).x, " y: ",first(world.snake).y)
-      return comer(mover(collision2(collisionSnake(first(world.snake),world.snake,world))));
+      return comer(mover(collision2(OutOfScreenUp(outOfScreenRight(collisionSnake(first(world.snake),world.snake,world))))));
     }
 
 
@@ -281,6 +297,8 @@ const takeAdd = function(world){
       processing.rect(world.foodx, world.foody, world.ancho, world.alto)
       processing.fill(40, 140, 200);
       processing.rect(first(world.snake).x, first(world.snake).y, world.ancho, world.alto);
+      //processing.rect(980,280,10,10);
+      //processing.rect(422,0,10,10)
       processing.fill(0, 0, 0);
       processing.textFont(processing.PFont, 20);
       processing.text("Score: " + world.score, 30, 40);
