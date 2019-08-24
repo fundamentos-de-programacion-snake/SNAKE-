@@ -193,7 +193,9 @@ const takeAdd = function(world){
     return make(world, { TC: true })
   }
   function sketchProc(processing) {
-   var img2 = processing.loadImage('onix.jpg')
+   var img2 = processing.loadImage('piso.jpg');
+   var img1 = processing.loadImage('madera.jpg');
+
     /**
      * Esto se llama antes de iniciar el juego
      */
@@ -213,7 +215,7 @@ const takeAdd = function(world){
         borde5x: 0,borde5y : 590,borde5ancho : 990,bordealto5 : 10,
         cuadro1x : 400,cuadro1y :0,cuadro1ancho : 10,cuadro1alto : 10,
         cuadro2x : 445,cuadro2y :0,cuadro2ancho : 10,cuadro2alto : 10,
-        foodx: posFoodX(), foody: posFoodX()
+        foodx: posFoodX(), foody: posFoodY()
         , TC: false
       };
     }
@@ -266,13 +268,20 @@ const takeAdd = function(world){
       let pintar = function(obj){
         return processing.rect(obj.x,obj.y,10,10);
       }
-      let pintarImg = function(imagen,x,y,width,height){
+      let pintarImg2 = function(imagen,x,y,width,height){
         return processing.image(imagen, x, y, width, height);
       }
-      
+
+      let pintarImg1 = function(imagen,x,y,width,height){
+        return processing.image(imagen, x, y, width, height);
+      }
+      let pintarImg3 = function(imagen,x,y,width,height){
+        return processing.image(imagen, x, y, width, height);
+      }
+
       processing.background(10,200,50);
       processing.fill(200, 0, 0);
-      //pintarImg(img2,0,0,990,600);
+      pintarImg2(img2,0,0,990,600);
       processing.rect(world.foodx, world.foody, world.ancho, world.alto)
       processing.fill(40, 140, 200);
       processing.rect(first(world.snake).x, first(world.snake).y, world.ancho, world.alto);
@@ -283,10 +292,13 @@ const takeAdd = function(world){
       processing.fill(20, 70, 0);
       processing.rect(world.Obstable1x, world.Obstacle1y, world.ancho1Obstable, world.alto1Obstacle);
       processing.fill(20, 70, 0);
+      pintarImg1(img1,180,130,30,330);
       processing.rect(world.Obstable2x, world.Obstacle2y, world.ancho2Obstable, world.alto2Obstacle);
       processing.fill(20, 70, 0);
+      pintarImg1(img1,460,130,30,330);
       processing.rect(world.Obstable3x, world.Obstacle3y, world.ancho3Obstable, world.alto3Obstacle);
       processing.fill(20, 70, 0);
+      pintarImg1(img1,740,130,30,330);
       processing.rect(world.borde1x,world.borde1y,world.borde1ancho,world.bordealto1);
       processing.fill(20, 70, 0);
       processing.rect(world.borde3x,world.borde3y,world.borde3ancho,world.bordealto3);
