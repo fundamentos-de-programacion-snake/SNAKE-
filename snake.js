@@ -1,4 +1,4 @@
- //Vamos a usar http://processingjs.org/
+//Vamos a usar http://processingjs.org/
 
 // Importamos las librerias
 let { cons, first, isEmpty, isList, length, rest } = functionalLight;
@@ -12,8 +12,7 @@ Funciones mover snake
 */
 const anchoX=990;
 const longitudY=600;
-const cols = (anchoX-10)/10;
-const rows = (longitudY-10)/10;
+
  
 /**
  * isInside: Object{p0, p1}, Object{x,y} => boolean
@@ -40,12 +39,14 @@ const movementOutScreenUp = function(world){
 const movementOutScreenRight = function(world){
   return make(world, {snake: cons({x: 422, y: 10},principio(world.snake)), ultimaTecla: "abajo"})
 }
+
 const posFoodX = function(){
-  return (Math.round(Math.random() * rows)*10)
+  return (Math.round(Math.random() * 10) / 10) * 980
 }
 const posFoodY = function(){
-  return (Math.round(Math.random() * cols)*10)
+  return (Math.round(Math.random() * 10) / 10) * 580
 }
+
 const principio = function (list) {
   if (isEmpty(list)) {
       return [];
@@ -184,7 +185,7 @@ const takeAdd = function(world){
 
 }
  const comer = function(world){
-   if((isInside({p0:{x:180,y:130},p1:{x:200,y:450}},{x:world.foodx , y:world.foody}) == true) || (isInside({p0:{x:460,y:130},p1:{x:480,y:450}},{x:world.foodx , y:world.foody}) == true) || (isInside({p0:{x:740,y:130},p1:{x:760,y:450}},{x:world.foodx , y:world.foody}) == true)){
+   if((isInside({p0:{x:180,y:130},p1:{x:200,y:450}},{x:world.foodx , y:world.foody}) == true) || (isInside({p0:{x:460,y:130},p1:{x:480,y:450}},{x:world.foodx , y:world.foody}) == true) || (isInside({p0:{x:740,y:130},p1:{x:760,y:450}},{x:world.foodx , y:world.foody}) == true ) ||  (isInside({p0:{x:0,y:0},p1:{x:10,y:600}},{x:world.foodx , y:world.foody}) == true)||  (isInside({p0:{x:0,y:0},p1:{x:400,y:10}},{x:world.foodx , y:world.foody} )== true) ||  (isInside({p0:{x:450,y:0},p1:{x:990,y:10}},{x:world.foodx , y:world.foody}) == true) ||  (isInside({p0:{x:0,y:590},p1:{x:990,y:10}},{x:world.foodx , y:world.foody}) == true)){
       return make(world,{foodx: posFoodX(), foody: posFoodY()})
    }else{
    if(l2({x:world.foodx, y: world.foody},{x:first(world.snake).x,y:first(world.snake).y})==0){
@@ -231,9 +232,7 @@ const takeAdd = function(world){
         borde3x: 0,borde3y : 0,borde3ancho : 400,bordealto3 : 10,
         borde4x: 450,borde4y : 0,borde4ancho : 550,bordealto4 : 10,
         borde5x: 0,borde5y : 590,borde5ancho : 990,bordealto5 : 10,
-        cuadro1x : 400,cuadro1y :0,cuadro1ancho : 10,cuadro1alto : 10,
-        cuadro2x : 445,cuadro2y :0,cuadro2ancho : 10,cuadro2alto : 10,
-        foodx: (Math.round(Math.random() * rows)*10), foody: (Math.round(Math.random() * cols)*10) 
+        foodx: (Math.round(Math.random() * 10) / 10) * 980, foody:(Math.round(Math.random() * 10) / 10) * 580 
         , TC: false
       };
     }
@@ -326,7 +325,7 @@ const takeAdd = function(world){
       
       
     }
-
+   
 
 
     // Esta es la función que pinta todo. Se ejecuta 60 veces por segundo. 
