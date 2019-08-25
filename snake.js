@@ -31,7 +31,9 @@ const winOrLose = function(world){
   }
 }
   function sketchProc(processing) {
-   var img2 = processing.loadImage('onix.jpg')
+   var img1 = processing.loadImage('pisito.png');
+   var img2 = processing.loadImage('maderita.jpg');
+   var img3 = processing.loadImage('zidra.png');
     /**
      * Esto se llama antes de iniciar el juego
      */
@@ -49,7 +51,7 @@ const winOrLose = function(world){
         borde3x: 0,borde3y : 0,borde3ancho : 400,bordealto3 : 10,
         borde4x: 450,borde4y : 0,borde4ancho : 550,bordealto4 : 10,
         borde5x: 0,borde5y : 590,borde5ancho : 990,bordealto5 : 10,
-        foodx: (Math.round(Math.random() * 10) / 10) * 800, foody:(Math.round(Math.random() * 10) / 10) * 500 
+        foodx: (Math.round(Math.random() * 10) / 10) * 800, foody:(Math.round(Math.random() * 10) / 10) * 500, anchof:25, altof:23
         , loser: false
       };
     }
@@ -103,13 +105,13 @@ const winOrLose = function(world){
       let pintar = function(obj){
         return processing.rect(obj.x,obj.y,10,10);
       }
-      let pintarImg = function(imagen,x,y,width,height){
+      let pintarImg= function(imagen,x,y,width,height){
         return processing.image(imagen, x, y, width, height);
       }
       
       processing.background(10,200,50);
       processing.fill(200, 0, 0);
-      //pintarImg(img2,0,0,990,600);
+      pintarImg(img1,0,0,990,600);
       processing.rect(world.foodx, world.foody, world.ancho, world.alto)
       processing.fill(40, 140, 200);
       processing.rect(first(world.snake).x, first(world.snake).y, world.ancho, world.alto);
@@ -122,18 +124,25 @@ const winOrLose = function(world){
       processing.fill(20, 70, 0);
       processing.rect(world.Obstable1x, world.Obstacle1y, world.ancho1Obstable, world.alto1Obstacle);
       processing.fill(20, 70, 0);
+      pintarImg(img2,180,130,30,330);
       processing.rect(world.Obstable2x, world.Obstacle2y, world.ancho2Obstable, world.alto2Obstacle);
       processing.fill(20, 70, 0);
+      pintarImg(img2,460,130,30,330);
       processing.rect(world.Obstable3x, world.Obstacle3y, world.ancho3Obstable, world.alto3Obstacle);
       processing.fill(20, 70, 0);
+      pintarImg(img2,740,130,30,330);
       processing.rect(world.borde1x,world.borde1y,world.borde1ancho,world.bordealto1);
       processing.fill(20, 70, 0);
+      pintarImg(img2,0,0,10,600);
       processing.rect(world.borde3x,world.borde3y,world.borde3ancho,world.bordealto3);
       processing.fill(20, 70, 0);
+      pintarImg(img2,0,0,400,10);
       processing.rect(world.borde4x,world.borde4y,world.borde4ancho,world.bordealto4);
       processing.fill(20, 70, 0);
+      pintarImg(img2,450,0,550,10);
       processing.rect(world.borde5x,world.borde5y,world.borde5ancho,world.bordealto5);
       processing.fill(240, 240, 240);
+      pintarImg(img2,0,590,990,10);
       processing.rect(world.cuadro1x,world.cuadro1y,world.cuadro1ancho,world.cuadro1alto);
       processing.fill(240, 240, 240);
       processing.rect(world.cuadro2x,world.cuadro2y,world.cuadro2ancho,world.cuadro2alto);
