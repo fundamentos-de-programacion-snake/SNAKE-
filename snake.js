@@ -112,7 +112,7 @@ const winOrLose = function(world){
       processing.background(10,200,50);
       processing.fill(200, 0, 0);
       pintarImg(img1,0,0,990,600);
-      processing.rect(world.foodx, world.foody, world.ancho, world.alto)
+      processing.image(img3,world.foodx, world.foody, world.anchof, world.altof)
       processing.fill(40, 140, 200);
       processing.rect(first(world.snake).x, first(world.snake).y, world.ancho, world.alto);
       //processing.rect(980,280,10,10);
