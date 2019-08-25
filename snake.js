@@ -25,7 +25,7 @@ const longitudY=600;
 
 const winOrLose = function(world){
   if(world.loser == true){
-    return alert("Perdiste")
+    return alert("Perdiste");
   }else{
     return make(world,{});
   }

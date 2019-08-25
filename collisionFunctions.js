@@ -5,6 +5,8 @@ function collision2(world){
       }else{
         return make(world, {loser: true});
       }
+    }else{
+        return make(world, {loser: true});
     }
   } 
   const collisionSnake = function(primero,list,world){
