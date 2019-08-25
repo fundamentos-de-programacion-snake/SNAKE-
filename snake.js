@@ -22,197 +22,14 @@ const longitudY=600;
  * isInside({p0: {x: 1, y: 1}, p1: {x: 2, y: 3}}, {x: 2, y: 2}) => true
  */
 
-function isInside(rect, p) {
-  if( p.x >= rect.p0.x && p.x <= rect.p1.x &&
-    p.y >= rect.p0.y && p.y <= rect.p1.y){
-      return true;
-  } else {
-    return false;
-  }
 
-}
-
-const movementOutScreenUp = function(world){
-  return make(world, {snake: cons({x: 980 , y: 280 },principio(world.snake)),ultimaTecla: "izquierda"})
-}
-
-const movementOutScreenRight = function(world){
-  return make(world, {snake: cons({x: 420, y: 10},principio(world.snake)), ultimaTecla: "abajo"})
-}
-
-const posFoodX = function(){
-  return (Math.round(Math.random() * 10) / 10) * 800
-}
-const posFoodY = function(){
-  return (Math.round(Math.random() * 10) / 10) * 500
-}
-
-const principio = function (list) {
-  if (isEmpty(list)) {
-      return [];
-  }
-  if (longitud(list) == 1) {
-      return [];
-  } else {
-      return cons(first(list), principio(rest(list)));
-  }
-}
-const last = function(list){
-  if(isEmpty(list)){
-    return [];
-  }else if(longitud(list)==1){
-    return first(list);
-  }else{
-    return last(rest(list));
-  }
-}
-const moveRight = function(world){
-   return world.x + 10
-}
-const moveUp = function(world){
-   return world.y - 10
-
-}
-const moveDown = function(world){
-  return  world.y + 10
-}
-const moveLeft = function(world){
-  return world.x - 10;
-}
-const mapObjX = function(list,fx){
-    return cons({x: fx(first(list)), y:first(list).y},principio(list));
-}
-const mapObjY = function(list,fx){
-  return cons({x: first(list).x, y: fx(first(list))},principio(list));
-}
-const mapObj = function(list,fx){
-  if(isEmpty(list)){
-    return [];
-  }else{
-    return cons(fx(first(list)),mapObj(rest(list),fx));
-  }
-}
-const outOfScreenRight = function(world){
-  if(first(world.snake).x >= 980 && world.ultimaTecla == "derecha"){
-    return movementOutScreenRight(world);
+const winOrLose = function(world){
+  if(world.loser == true){
+    return alert("Perdiste")
   }else{
     return make(world,{});
   }
 }
-
-const OutOfScreenUp = function(world){
-  if(first(world.snake).y<10 && first(world.snake).x>=400 && first(world.snake).x <=445 ){
-    return movementOutScreenUp(world);
-  }else{
-    return make(world,{});  
-  }
-}
-
-function collision2(world){
-  if(((first(world.snake).x)>=10 &&  (first(world.snake).y)>=10 && (first(world.snake).y)<=580)){
-    if( (isInside({p0:{x:180,y:130},p1:{x:200,y:450}},{x:first(world.snake).x , y:first(world.snake).y}) != true) && (isInside({p0:{x:460,y:130},p1:{x:480,y:450}},{x:first(world.snake).x , y:first(world.snake).y}) != true) && (isInside({p0:{x:740,y:130},p1:{x:760,y:450}},{x:first(world.snake).x , y:first(world.snake).y}) != true)){
-      return make(world,{});
-    }else{
-      return alert("Perdiste")
-    }
-  }
-} 
-const collisionSnake = function(primero,list,world){
-    if(isEmpty(list)){
-      return make(world,{});
-    }else{
-    if(length(list)==1){
-     return make(world,{});
-    }else{
-      if((primero.x == first(rest(list)).x) && (primero.y == first(rest(list)).y)){
-        return alert("Perdiste");
-    }else{
-      return collisionSnake(primero,rest(list),world);
-    }
-  }
-}
-}
-const longitud = function (list) {
-  if (isEmpty(list)) {
-      return 0;
-  } else {
-      return 1 + longitud(rest(list));
-  }
-}
-
- function l2(a, b) {
-  return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
-}
-  function make(data, attribute) {
-    return Object.assign({}, data, attribute);
-  }
-  const addLeft = function(world){
-    return make(world,{score: world.score+10,foodx: posFoodX(), foody:posFoodY(),
-      snake: append(world.snake, [{ x: last(world.snake).x + 10,y:last(world.snake).y}])
-  });
-  }
-  const addRight = function(world){
-    return make(world,{score: world.score+10,foodx: posFoodX(), foody:posFoodY(),
-      snake: append(world.snake, [{ x: last(world.snake).x - 10,y: last(world.snake).y}])
-  });
-}
-const addDown = function(world){
-  return make(world,{score: world.score+10,foodx: posFoodX(), foody: posFoodY(),
-    snake: append(world.snake, [{ x: last(world.snake).x,y: last(world.snake).y-10}])
-});
-}
-const addUp = function(world){
-  return make(world,{score: world.score+10,foodx: posFoodX(), foody: posFoodY(),
-    snake: append(world.snake, [{ x: last(world.snake).x,y: last(world.snake).y+10}])
-});
-}
-const takeAdd = function(world){
-  if(l2({x:world.foodx, y: world.foody},{x:first(world.snake).x,y:first(world.snake).y})==0){
-    if(world.ultimaTecla==="izquierda"){
-      return addLeft(world);
-    }else if(world.ultimaTecla=="derecha"){
-      return addRight(world);
-    }else if(world.ultimaTecla=="abajo"){
-      return addDown(world);
-    }else if(world.ultimaTecla=="arriba"){
-      return addUp(world);
-    }else{
-      return make(world,{});
-    }
-  }else{
-    return make(world,{});
-  }
-
-}
- const comer = function(world){
-   if((isInside({p0:{x:180,y:130},p1:{x:200,y:450}},{x:world.foodx , y:world.foody}) == true) || (isInside({p0:{x:460,y:130},p1:{x:480,y:450}},{x:world.foodx , y:world.foody}) == true) || (isInside({p0:{x:740,y:130},p1:{x:760,y:450}},{x:world.foodx , y:world.foody}) == true ) ||  (isInside({p0:{x:0,y:0},p1:{x:10,y:600}},{x:world.foodx , y:world.foody}) == true)||  (isInside({p0:{x:0,y:0},p1:{x:400,y:10}},{x:world.foodx , y:world.foody} )== true) ||  (isInside({p0:{x:450,y:0},p1:{x:990,y:10}},{x:world.foodx , y:world.foody}) == true) ||  (isInside({p0:{x:0,y:590},p1:{x:990,y:10}},{x:world.foodx , y:world.foody}) == true)){
-      return make(world,{foodx: posFoodX(), foody: posFoodY()})
-   }else{
-   if(l2({x:world.foodx, y: world.foody},{x:first(world.snake).x,y:first(world.snake).y})==0){
-     return takeAdd(world);
-   }else{
-     return make(world,{});
-   }
-  }
- }
-  function obj(x, y) {
-    return { x, y }
-  }
-  function append(x, y) {
-    if (isEmpty(x)) {
-      return y
-    }
-    if (length(x) == 1) {
-      return cons(first(x), y)
-    } else {
-      return cons(first(x), append(rest(x), y))
-    }
-  }
-
-
-  function f(world) {
-    return make(world, { TC: true })
-  }
   function sketchProc(processing) {
    var img2 = processing.loadImage('onix.jpg')
     /**
@@ -233,7 +50,7 @@ const takeAdd = function(world){
         borde4x: 450,borde4y : 0,borde4ancho : 550,bordealto4 : 10,
         borde5x: 0,borde5y : 590,borde5ancho : 990,bordealto5 : 10,
         foodx: (Math.round(Math.random() * 10) / 10) * 800, foody:(Math.round(Math.random() * 10) / 10) * 500 
-        , TC: false
+        , loser: false
       };
     }
 
@@ -275,7 +92,7 @@ const takeAdd = function(world){
     */
     processing.onTic = function (world) {
       console.log("x: ",first(world.snake).x, " y: ",first(world.snake).y)
-      return comer(mover(collision2(OutOfScreenUp(outOfScreenRight(collisionSnake(first(world.snake),world.snake,world))))));
+      return winOrLose(comer(mover(collision2(OutOfScreenUp(outOfScreenRight(collisionSnake(first(world.snake),world.snake,world)))))));
     }
 
 
