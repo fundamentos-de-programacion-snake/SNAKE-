@@ -37,14 +37,14 @@ const movementOutScreenUp = function(world){
 }
 
 const movementOutScreenRight = function(world){
-  return make(world, {snake: cons({x: 422, y: 10},principio(world.snake)), ultimaTecla: "abajo"})
+  return make(world, {snake: cons({x: 420, y: 10},principio(world.snake)), ultimaTecla: "abajo"})
 }
 
 const posFoodX = function(){
-  return (Math.round(Math.random() * 10) / 10) * 980
+  return (Math.round(Math.random() * 10) / 10) * 800
 }
 const posFoodY = function(){
-  return (Math.round(Math.random() * 10) / 10) * 580
+  return (Math.round(Math.random() * 10) / 10) * 500
 }
 
 const principio = function (list) {
@@ -232,7 +232,7 @@ const takeAdd = function(world){
         borde3x: 0,borde3y : 0,borde3ancho : 400,bordealto3 : 10,
         borde4x: 450,borde4y : 0,borde4ancho : 550,bordealto4 : 10,
         borde5x: 0,borde5y : 590,borde5ancho : 990,bordealto5 : 10,
-        foodx: (Math.round(Math.random() * 10) / 10) * 980, foody:(Math.round(Math.random() * 10) / 10) * 580 
+        foodx: (Math.round(Math.random() * 10) / 10) * 800, foody:(Math.round(Math.random() * 10) / 10) * 500 
         , TC: false
       };
     }
