@@ -23,7 +23,7 @@ let actualizar = {
   borde4x: 450,borde4y : 0,borde4ancho : 550,bordealto4 : 10,
   borde5x: 0,borde5y : 590,borde5ancho : 990,bordealto5 : 10,
   foodx: (Math.round(Math.random() * 10) / 10) * 800, foody:(Math.round(Math.random() * 10) / 10) * 500, anchof:25, altof:23
-  , loser: false, score2: localStorage.getItem("puntuacion")
+  , loser: false, score2: 0
 };
  
 /**
@@ -36,9 +36,9 @@ let actualizar = {
 const isBest = function(world){
   localStorage.setItem("puntuacion",world.score)
   if(parseInt(localStorage.getItem("puntuacion"))>=world.score){
-    return make(actualizar,{score2:parseInt(localStorage.getItem("puntuacion"))})
+    return make(world,{score2:parseInt(localStorage.getItem("puntuacion")), score:})
   }else{
-    return make(actualizar,{score2: world.score});
+    return 
   }
 }
 const winOrLose = function(world){
@@ -138,7 +138,7 @@ const winOrLose = function(world){
       processing.textFont(processing.PFont, 20);
       processing.text("Score: " + world.score, 30, 40);
       processing.textFont(processing.PFont, 20);
-      processing.text("Best Score: " + parseInt(localStorage.getItem("puntuacion")), 30, 60);
+      processing.text("Best Score: " + world.score2, 30, 60);
       processing.rect(990,0,10,10);
       processing.fill(20, 70, 0);
       processing.rect(world.Obstable1x, world.Obstacle1y, world.ancho1Obstable, world.alto1Obstacle);
