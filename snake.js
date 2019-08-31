@@ -23,7 +23,7 @@ let actualizar = {
   borde4x: 450,borde4y : 0,borde4ancho : 550,bordealto4 : 10,
   borde5x: 0,borde5y : 590,borde5ancho : 990,bordealto5 : 10,
   foodx: (Math.round(Math.random() * 10) / 10) * 800, foody:(Math.round(Math.random() * 10) / 10) * 500, anchof:25, altof:23
-  , loser: false, score2: localStorage.getItem("puntuacion")
+  , loser: false, score2: 0
 };
  
 /**
@@ -34,11 +34,11 @@ let actualizar = {
  * isInside({p0: {x: 1, y: 1}, p1: {x: 2, y: 3}}, {x: 2, y: 2}) => true
  */
 const isBest = function(world){
-  localStorage.setItem("puntuacion",world.score)
   if(parseInt(localStorage.getItem("puntuacion"))>=world.score){
-    return make(actualizar,{score2:parseInt(localStorage.getItem("puntuacion"))})
+    return make(actualizar,{});
   }else{
-    return make(actualizar,{score2: world.score});
+    localStorage.setItem("puntuacion",world.score)
+    return make(actualizar,{score2: parseInt(localStorage.getItem("puntuacion"))});
   }
 }
 const winOrLose = function(world){
