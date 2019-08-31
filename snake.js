@@ -10,9 +10,28 @@ let { cons, first, isEmpty, isList, length, rest } = functionalLight;
 /*
 Funciones mover snake
 */
+const local = function(world){
+  return make(world,{local: localStorage.setItem("score",world.score)});
+
+}
+const get = function(world){
+  return make(world,{score2: localStorage.getItem("score")})
+}
 const anchoX=990;
 const longitudY=600;
-
+let actualizar = {
+  snake: [{ x: 100, y: 100 }], ancho: 10, alto: 10,
+  ultimaTecla: "derecha", score: 0,
+  Obstable1x: 180, Obstacle1y:130, ancho1Obstable: 30, alto1Obstacle: 330,
+  Obstable2x: 460, Obstacle2y:130, ancho2Obstable: 30, alto2Obstacle: 330,
+  Obstable3x: 740, Obstacle3y:130, ancho3Obstable: 30, alto3Obstacle: 330,
+  borde1x: 0,borde1y : 0,borde1ancho : 10,bordealto1 : 600,
+  borde3x: 0,borde3y : 0,borde3ancho : 400,bordealto3 : 10,
+  borde4x: 450,borde4y : 0,borde4ancho : 550,bordealto4 : 10,
+  borde5x: 0,borde5y : 590,borde5ancho : 990,bordealto5 : 10,
+  foodx: (Math.round(Math.random() * 10) / 10) * 800, foody:(Math.round(Math.random() * 10) / 10) * 500, anchof:25, altof:23
+  , loser: false, score2: 0
+};
  
 /**
  * isInside: Object{p0, p1}, Object{x,y} => boolean
@@ -21,11 +40,16 @@ const longitudY=600;
  * isInside({p0: {x: 1, y: 1}, p1: {x: 2, y: 3}}, {x: 0, y: 0}) => false
  * isInside({p0: {x: 1, y: 1}, p1: {x: 2, y: 3}}, {x: 2, y: 2}) => true
  */
-
-
+const isBest = function(world){
+  if(actualizar.score2>=world.score){
+    return actualizar = make(actualizar,{});
+  }else{
+    return actualizar = make(actualizar,{score2:world.score});
+  }
+}
 const winOrLose = function(world){
   if(world.loser == true){
-    return alert("Perdiste");
+    return make(world,isBest(world))
   }else{
     return make(world,{});
   }
@@ -38,7 +62,7 @@ const winOrLose = function(world){
      * Esto se llama antes de iniciar el juego
      */
     processing.setup = function () {
-      processing.frameRate(10);
+      processing.frameRate(16);
       processing.size(anchoX,longitudY);
       processing.background(10,200,50);
       processing.state = {
@@ -55,7 +79,6 @@ const winOrLose = function(world){
         , loser: false
       };
     }
-
     /**
     * Actualiza el mundo cada vez que se oprime una tecla. Retorna el nuevo stado del mundo
     */
@@ -93,8 +116,8 @@ const winOrLose = function(world){
     * Actualiza el mundo en cada tic del reloj. Retorna el nuevo stado del mundo
     */
     processing.onTic = function (world) {
-      console.log("x: ",first(world.snake).x, " y: ",first(world.snake).y)
-      return winOrLose(comer(mover(collision2(OutOfScreenUp(outOfScreenRight(collisionSnake(first(world.snake),world.snake,world)))))));
+      console.log("Actualizar:"+actualizar.score2)
+      return get(local(winOrLose(comer(mover(collision2(OutOfScreenUp(outOfScreenRight(collisionSnake(first(world.snake),world.snake,world)))))))));
     }
 
 
@@ -112,7 +135,7 @@ const winOrLose = function(world){
       processing.background(10,200,50);
       processing.fill(200, 0, 0);
       pintarImg(img1,0,0,990,600);
-      processing.image(img3,world.foodx, world.foody, world.anchof, world.altof)
+      processing.image(img3,world.foodx, world.foody, 10, 10)
       processing.fill(40, 140, 200);
       processing.rect(first(world.snake).x, first(world.snake).y, world.ancho, world.alto);
       //processing.rect(980,280,10,10);
@@ -120,6 +143,8 @@ const winOrLose = function(world){
       processing.fill(0, 0, 0);
       processing.textFont(processing.PFont, 20);
       processing.text("Score: " + world.score, 30, 40);
+      processing.textFont(processing.PFont, 20);
+      processing.text("Best Score: " + actualizar.score2, 30, 60);
       processing.rect(990,0,10,10);
       processing.fill(20, 70, 0);
       processing.rect(world.Obstable1x, world.Obstacle1y, world.ancho1Obstable, world.alto1Obstacle);
