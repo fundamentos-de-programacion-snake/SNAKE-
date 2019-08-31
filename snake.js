@@ -57,7 +57,6 @@ const winOrLose = function(world){
     processing.setup = function () {
       processing.frameRate(16);
       processing.size(anchoX,longitudY);
-      processing.background(10,200,50);
       processing.state = {
         snake: [{ x: 100, y: 100 }], ancho: 10, alto: 10,
         ultimaTecla: "derecha", score: 0,
@@ -129,6 +128,8 @@ const winOrLose = function(world){
       processing.text("Score: " + world.score, 30, 40);
       processing.rect(990, 0, 10, 10);
       processing.fill(20, 70, 0);
+      processing.textFont(processing.PFont,20)
+      processing.text("Best score: "+actualizar.score2,30,60)
   
       pintarImg(img2, 180, 130, 30, 330);
       pintarImg(img2, 460, 130, 30, 330);
@@ -164,3 +165,4 @@ const winOrLose = function(world){
 
   // Adjuntamos nuestro sketch al framework de processing
   var processingInstance = new Processing(canvas, sketchProc);
+
