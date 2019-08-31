@@ -10,13 +10,6 @@ let { cons, first, isEmpty, isList, length, rest } = functionalLight;
 /*
 Funciones mover snake
 */
-const local = function(world){
-  return make(world,{local: localStorage.setItem("score",world.score)});
-
-}
-const get = function(world){
-  return make(world,{score2: localStorage.getItem("score")})
-}
 const anchoX=990;
 const longitudY=600;
 let actualizar = {
@@ -30,7 +23,7 @@ let actualizar = {
   borde4x: 450,borde4y : 0,borde4ancho : 550,bordealto4 : 10,
   borde5x: 0,borde5y : 590,borde5ancho : 990,bordealto5 : 10,
   foodx: (Math.round(Math.random() * 10) / 10) * 800, foody:(Math.round(Math.random() * 10) / 10) * 500, anchof:25, altof:23
-  , loser: false, score2: 0
+  , loser: false, score2: localStorage.getItem("puntuacion")
 };
  
 /**
@@ -41,15 +34,16 @@ let actualizar = {
  * isInside({p0: {x: 1, y: 1}, p1: {x: 2, y: 3}}, {x: 2, y: 2}) => true
  */
 const isBest = function(world){
-  if(actualizar.score2>=world.score){
-    return actualizar = make(actualizar,{});
+  localStorage.setItem("puntuacion",world.score)
+  if(parseInt(localStorage.getItem("puntuacion"))>=world.score){
+    return make(actualizar,{score2:parseInt(localStorage.getItem("puntuacion"))})
   }else{
-    return actualizar = make(actualizar,{score2:world.score});
+    return make(actualizar,{score2: world.score});
   }
 }
 const winOrLose = function(world){
   if(world.loser == true){
-    return make(world,isBest(world))
+    return isBest(world)
   }else{
     return make(world,{});
   }
@@ -76,7 +70,7 @@ const winOrLose = function(world){
         borde4x: 450,borde4y : 0,borde4ancho : 550,bordealto4 : 10,
         borde5x: 0,borde5y : 590,borde5ancho : 990,bordealto5 : 10,
         foodx: (Math.round(Math.random() * 10) / 10) * 800, foody:(Math.round(Math.random() * 10) / 10) * 500, anchof:25, altof:23
-        , loser: false
+        , loser: false, score2: 0
       };
     }
     /**
@@ -117,7 +111,7 @@ const winOrLose = function(world){
     */
     processing.onTic = function (world) {
       console.log("Actualizar:"+actualizar.score2)
-      return get(local(winOrLose(comer(mover(collision2(OutOfScreenUp(outOfScreenRight(collisionSnake(first(world.snake),world.snake,world)))))))));
+      return winOrLose(comer(mover(collision2(OutOfScreenUp(outOfScreenRight(collisionSnake(first(world.snake),world.snake,world)))))));
     }
 
 
@@ -144,7 +138,7 @@ const winOrLose = function(world){
       processing.textFont(processing.PFont, 20);
       processing.text("Score: " + world.score, 30, 40);
       processing.textFont(processing.PFont, 20);
-      processing.text("Best Score: " + actualizar.score2, 30, 60);
+      processing.text("Best Score: " + parseInt(localStorage.getItem("puntuacion")), 30, 60);
       processing.rect(990,0,10,10);
       processing.fill(20, 70, 0);
       processing.rect(world.Obstable1x, world.Obstacle1y, world.ancho1Obstable, world.alto1Obstacle);
