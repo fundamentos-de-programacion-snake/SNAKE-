@@ -22,13 +22,6 @@ const longitudY=600;
 let actualizar = {
   snake: [{ x: 100, y: 100 }], ancho: 10, alto: 10,
   ultimaTecla: "derecha", score: 0,
-  Obstable1x: 180, Obstacle1y:130, ancho1Obstable: 30, alto1Obstacle: 330,
-  Obstable2x: 460, Obstacle2y:130, ancho2Obstable: 30, alto2Obstacle: 330,
-  Obstable3x: 740, Obstacle3y:130, ancho3Obstable: 30, alto3Obstacle: 330,
-  borde1x: 0,borde1y : 0,borde1ancho : 10,bordealto1 : 600,
-  borde3x: 0,borde3y : 0,borde3ancho : 400,bordealto3 : 10,
-  borde4x: 450,borde4y : 0,borde4ancho : 550,bordealto4 : 10,
-  borde5x: 0,borde5y : 590,borde5ancho : 990,bordealto5 : 10,
   foodx: (Math.round(Math.random() * 10) / 10) * 800, foody:(Math.round(Math.random() * 10) / 10) * 500, anchof:25, altof:23
   , loser: false, score2: 0
 };
