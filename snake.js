@@ -62,7 +62,9 @@ const winOrLose = function(world){
       processing.size(anchoX,longitudY);
 
       processing.state = {
-       // color :250,
+       num :120,
+       num1: 0,
+       num2 : 50,
         snake: [{ x: 100, y: 100 }], ancho: 10, alto: 10,
         ultimaTecla: "derecha", score: 0,
         foodx: (Math.round(Math.random() * 10) / 10) * 800, foody:(Math.round(Math.random() * 10) / 10) * 500, anchof:10, altof:10
@@ -144,11 +146,13 @@ const winOrLose = function(world){
       pintarImg(img2, 450, 0, 550, 10);
       pintarImg(img2, 0, 590, 990, 10);
   
-     processing.fill(50)
+     processing.fill(color(world.num),color(world.num1),color(world.num2))
       mapObj(world.snake, pintar);
     }
-  
- let color = 60
+    
+    const color = function (num){
+      return num
+    }
 
 
     // Esta es la función que pinta todo. Se ejecuta 60 veces por segundo. 
@@ -165,7 +169,7 @@ const winOrLose = function(world){
     }
   }
 
-
+  
 
   var canvas = document.getElementById("canvas");
 
