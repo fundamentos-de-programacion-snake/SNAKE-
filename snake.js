@@ -21,13 +21,12 @@ let actualizar = {
   , loser: false
 };
  
-/**
- * isInside: Object{p0, p1}, Object{x,y} => boolean
- * Verifica si el punto p se encuentra dentro del rectangulo rect
- * Ejemplo: 
- * isInside({p0: {x: 1, y: 1}, p1: {x: 2, y: 3}}, {x:   0, y: 0}) => false
- * isInside({p0: {x: 1, y: 1}, p1: {x: 2, y: 3}}, {x: 2, y: 2}) => true
- */
+ /**
+  * Destaca las puntuaciones más altas en el juego. Se refresca cada vez que inicia el juego y
+  * por defecto inicia en cero.
+  * @param {world} World - El mundo en que se mueve snake.
+  * Cuerpo:
+  */
 const isBest = function(world){
   if(parseInt(localStorage.getItem("puntuacion"))>=world.score){
     return make(actualizar,{});
@@ -36,6 +35,10 @@ const isBest = function(world){
     return make(actualizar,{});
   }
 }
+/**
+ * WinOrLose: Funcion que determina si determinado score al termino del juego, es mayor al anterior.
+ * @param {world} world - El mundo donde se mueve snake.
+ */
 const winOrLose = function(world){
   if(world.loser == true){
     return isBest(world)
