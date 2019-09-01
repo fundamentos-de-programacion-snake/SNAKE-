@@ -10,13 +10,6 @@ let { cons, first, isEmpty, isList, length, rest } = functionalLight;
 /*
 Funciones mover snake
 */
-const local = function(world){
-  return make(world,{local: localStorage.setItem("score",world.score)});
-
-}
-const get = function(world){
-  return make(world,{score2: localStorage.getItem("score")})
-}
 const anchoX=990;
 const longitudY=600;
 
@@ -25,14 +18,14 @@ let actualizar = {
   snake: [{ x: 100, y: 100 }], ancho: 10, alto: 10,
   ultimaTecla: "derecha", score: 0,
   foodx: (Math.round(Math.random() * 10) / 10) * 800, foody:(Math.round(Math.random() * 10) / 10) * 500, anchof:10, altof:10
-  , loser: false, score2: 0
+  , loser: false
 };
  
 /**
  * isInside: Object{p0, p1}, Object{x,y} => boolean
  * Verifica si el punto p se encuentra dentro del rectangulo rect
  * Ejemplo: 
- * isInside({p0: {x: 1, y: 1}, p1: {x: 2, y: 3}}, {x: 0, y: 0}) => false
+ * isInside({p0: {x: 1, y: 1}, p1: {x: 2, y: 3}}, {x:   0, y: 0}) => false
  * isInside({p0: {x: 1, y: 1}, p1: {x: 2, y: 3}}, {x: 2, y: 2}) => true
  */
 const isBest = function(world){
@@ -40,7 +33,7 @@ const isBest = function(world){
     return make(actualizar,{});
   }else{
     localStorage.setItem("puntuacion",world.score)
-    return make(actualizar,{score2: parseInt(localStorage.getItem("puntuacion"))});
+    return make(actualizar,{});
   }
 }
 const winOrLose = function(world){
@@ -53,7 +46,6 @@ const winOrLose = function(world){
   function sketchProc(processing) {
    var img1 = processing.loadImage('pisito.png');
    var img2 = processing.loadImage('maderita.jpg');
-   var img3 = processing.loadImage('zidra.png');
     /**
      * Esto se llama antes de iniciar el juego
      */
@@ -108,7 +100,6 @@ const winOrLose = function(world){
     * Actualiza el mundo en cada tic del reloj. Retorna el nuevo stado del mundo
     */
    processing.onTic = function (world) {
-    console.log("Actualizar:"+actualizar.score2)
     return winOrLose(comer(mover(collision2(OutOfScreenUp(outOfScreenRight(collisionSnake(first(world.snake),world.snake,world)))))));
   }
 
@@ -121,7 +112,13 @@ const winOrLose = function(world){
       let pintar = function (obj) {
         return processing.rect(obj.x, obj.y, 10, 10) ;
       }
-  
+      let best = function(){
+        if(isNaN(parseInt(localStorage.getItem("puntuacion")))){
+          return processing.text("Best score: "+0,30,60)
+        }else{
+          return processing.text("Best score: "+parseInt(localStorage.getItem("puntuacion")),30,60)
+        }
+      }
       let pintarImg = function (imagen, x, y, width, height) {
         return processing.image(imagen, x, y, width, height);
       }
@@ -136,7 +133,7 @@ const winOrLose = function(world){
       processing.rect(990, 0, 10, 10);
       processing.fill(20, 70, 0);
       processing.textFont(processing.PFont,20)
-      processing.text("Best score: "+parseInt(localStorage.getItem("puntuacion")),30,60)
+      best();
 
       pintarImg(img2, 180, 130, 30, 330);
       pintarImg(img2, 460, 130, 30, 330);
