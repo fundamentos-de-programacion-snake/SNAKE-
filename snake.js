@@ -46,6 +46,7 @@ const winOrLose = function(world){
   function sketchProc(processing) {
    var img1 = processing.loadImage('pisito.png');
    var img2 = processing.loadImage('maderita.jpg');
+   var img3 = processing.loadImage('manzanag.png');
     /**
      * Esto se llama antes de iniciar el juego
      */
@@ -125,7 +126,7 @@ const winOrLose = function(world){
       pintarImg(img1, 0, 0, 990, 600);
 
       processing.fill(250, 10, 10);
-      processing.rect(world.foodx, world.foody, 10, 10)
+      processing.image(img3,world.foodx, world.foody, 13, 13)
       
       processing.fill(0, 0, 0);
       processing.textFont(processing.PFont, 20);
