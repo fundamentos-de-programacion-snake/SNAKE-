@@ -153,7 +153,7 @@ const takeAdd2 = function (world) {
 
 const addLeft2 = function (world) {
   return make(world, {
-    score: world.score + 20, food2x: posFoodX(), food2y: posFoodY(),
+    score: world.score + 20, food2x: posFoodX(), food2y: posFoodY(),foodx: posFoodX(), foody: posFoodY(),
     snake: append(append(world.snake, [{ x: last(world.snake).x + 10, y: last(world.snake).y }]),[{ x: last(world.snake).x + 10, y: last(world.snake).y }])
     , num: Math.random() * 255, num1: Math.random() * 255, num2: Math.random() * 255
   });
@@ -161,7 +161,7 @@ const addLeft2 = function (world) {
 
 const addRight2 = function (world) {
   return make(world, {
-    score: world.score + 20, food2x: posFoodX(), food2y: posFoodY(),
+    score: world.score + 20, food2x: posFoodX(), food2y: posFoodY(),foodx: posFoodX(), foody: posFoodY(),
     snake: append(append(world.snake, [{ x: last(world.snake).x - 10, y: last(world.snake).y }]),[{ x: last(world.snake).x - 10, y: last(world.snake).y }])
     , num: Math.random() * 255, num1: Math.random() * 255, num2: Math.random() * 255
   });
@@ -169,14 +169,14 @@ const addRight2 = function (world) {
 
 const addDown2 = function (world) {
   return make(world, {
-    score: world.score + 20, food2x: posFoodX(), food2y: posFoodY(),
+    score: world.score + 20, food2x: posFoodX(), food2y: posFoodY(),foodx: posFoodX(), foody: posFoodY(),
     snake: append(append(world.snake, [{ x: last(world.snake).x, y: last(world.snake).y - 10}]),[{ x: last(world.snake).x, y: last(world.snake).y - 10}])
     , num: Math.random() * 255, num1: Math.random() * 255, num2: Math.random() * 255
   });
 }
 const addUp2 = function (world) {
   return make(world, {
-    score: world.score + 20, food2x: posFoodX(), food2y: posFoodY(),
+    score: world.score + 20, food2x: posFoodX(), food2y: posFoodY(),foodx: posFoodX(), foody: posFoodY(),
     snake: append(append(world.snake, [{ x: last(world.snake).x, y: last(world.snake).y + 10 }]), [{ x: last(world.snake).x, y: last(world.snake).y + 10 }])
     , num: Math.random() * 255, num1: Math.random() * 255, num2: Math.random() * 255
   });
