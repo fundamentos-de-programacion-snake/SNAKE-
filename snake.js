@@ -190,6 +190,10 @@ const winOrLose = function(world){
     processing.keyPressed = function () {
       processing.state = processing.onKeyEvent(processing.state, processing.keyCode);
     }
+     // Borra el mejor score
+    processing.borrar = function() {
+          localStorage.removeItem("puntuacion")
+    }
   }
 
   
