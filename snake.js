@@ -18,7 +18,8 @@ let actualizar = {
   snake: [{ x: 100, y: 100 }], ancho: 10, alto: 10,
   ultimaTecla: "derecha", score: 0,
   foodx: (Math.round(Math.random() * 10) / 10) * 800, foody:(Math.round(Math.random() * 10) / 10) * 500, anchof:10, altof:10
-  , loser: false
+  , loser: false,food2x:(Math.round(Math.random() * 10) / 10) * 800, food2y:(Math.round(Math.random() * 10) / 10) * 500, ancho2f:10, alto2f:10,o:0
+  
 };
  
  /**
@@ -64,7 +65,7 @@ const winOrLose = function(world){
         snake: [{ x: 100, y: 100 }], ancho: 10, alto: 10,
         ultimaTecla: "derecha", score: 0,
         foodx: (Math.round(Math.random() * 10) / 10) * 800, foody:(Math.round(Math.random() * 10) / 10) * 500, anchof:10, altof:10
-        , loser: false
+        , loser: false,food2x:(Math.round(Math.random() * 10) / 10) * 800, food2y:(Math.round(Math.random() * 10) / 10) * 500, ancho2f:10, alto2f:10,o:0
       };
     }
     /**
@@ -104,11 +105,15 @@ const winOrLose = function(world){
     * Actualiza el mundo en cada tic del reloj. Retorna el nuevo stado del mundo
     */
    processing.onTic = function (world) {
-    return winOrLose(comer(mover(collision2(OutOfScreenUp(outOfScreenRight(collisionSnake(first(world.snake),world.snake,world)))))));
+    return winOrLose(comer(comer2(mover(collision2(OutOfScreenUp(contador(outOfScreenRight(collisionSnake(first(world.snake),world.snake,world)))))))));
   }
-
-
-
+  const contador = function (world){
+    if(world.o>60){
+      return make(world,{food2x:(Math.round(Math.random() * 10) / 10) * 800 , food2y:(Math.round(Math.random() * 10) / 10) * 500,o:0})
+    }else{
+      return make(world,{o:world.o+1})
+    }
+  }
 
 
     // Dibuja algo en el canvas. Aqui se pone todo lo que quieras pintar
@@ -128,9 +133,13 @@ const winOrLose = function(world){
       }
       pintarImg(img1, 0, 0, 990, 600);
 
-      processing.fill(250, 10, 10);
+     // processing.fill(250, 10, 10);
       processing.image(img3,world.foodx, world.foody, 13, 13)
+
+     processing.fill(Math.random()*255,Math.random()*255,Math.random()*255)
+     processing.rect(world.food2x,world.food2y,world.ancho2f,world.alto2f)
       
+
       processing.fill(0, 0, 0);
       processing.textFont(processing.PFont, 20);
       processing.text("Score: " + world.score, 30, 40);
@@ -154,6 +163,7 @@ const winOrLose = function(world){
     const color = function (num){
       return num
     }
+  
 
 
     // Esta es la función que pinta todo. Se ejecuta 60 veces por segundo. 
@@ -176,4 +186,6 @@ const winOrLose = function(world){
 
   // Adjuntamos nuestro sketch al framework de processing
   var processingInstance = new Processing(canvas, sketchProc);
+
+
 
