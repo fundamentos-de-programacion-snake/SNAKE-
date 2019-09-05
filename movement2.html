@@ -1,4 +1,7 @@
-<canvas id="canvas" width="300" height="300"></canvas>
+<canvas id="canvas" width="300" height="300" ></canvas>
+<form>
+    <input value="Reload Page" onclick="history.go(0)" type="button">
+</form>
 <script src="web-lib/processing.js"></script>
 <script src="web-lib/functional-light.js"></script>
 <script src="web-lib/index.js"></script>
@@ -7,6 +10,6 @@
 <script src= "./functionsEat.js"></script>
 <script src="./AuxFunctions.js"></script>
 <script src="collisionFunctions.js"></script>
-<form>
-    <input value="Reload Page" onclick="history.go(0)" type="button">
-</form>
+
+<button onClick="processingInstance.borrar()">Borar mejor score</button>
+
