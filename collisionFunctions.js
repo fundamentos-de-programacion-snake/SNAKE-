@@ -43,7 +43,7 @@ function collision2(world){
       return alerta(world);
     }
   }else{
-      return make(world, {loser: true});
+      return alerta(world);
   }
 }
 /** Pruebas

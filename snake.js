@@ -12,7 +12,8 @@ Funciones mover snake
 */
 const anchoX=990;
 const longitudY=600;
-
+const cols = (anchoX-10)/10;
+const rows = (longitudY-20)/10
 let actualizar = {
   //color :250,
   snake: [{ x: 100, y: 100 }], ancho: 10, alto: 10,
@@ -29,10 +30,11 @@ let actualizar = {
   */
 const isBest = function(world){
   if(parseInt(localStorage.getItem("puntuacion"))>=world.score){
-    return make(actualizar,{});
+    return make(world,actualizar);
   }else{
+    localStorage.setItem("nombre",prompt("Digite su nombre: "))
     localStorage.setItem("puntuacion",world.score)
-    return make(actualizar,{});
+    return make(world,actualizar);
   }
 }
 /**
@@ -71,13 +73,16 @@ const winOrLose = function(world){
     * Actualiza el mundo cada vez que se oprime una tecla. Retorna el nuevo stado del mundo
     */
     processing.onKeyEvent = function (world, keyCode) {
-      if(keyCode == processing.UP && world.ultimaTecla != "abajo"){
-        return make(world,{ultimaTecla: "arriba"})
-      }else if(keyCode == processing.DOWN && world.ultimaTecla != "arriba"){
-        return make(world,{ultimaTecla: "abajo"})
-      }else if(keyCode == processing.RIGHT && world.ultimaTecla != "izquierda"){
+      if(keyCode === processing.UP && world.ultimaTecla !== 'abajo'){
+        return make(world,{ultimaTecla: 'arriba'})
+      }
+      if(keyCode === processing.DOWN && world.ultimaTecla !== "arriba"){
+        return make(world,{ultimaTecla: 'abajo'})
+      }
+       if(keyCode === processing.RIGHT && world.ultimaTecla !== "izquierda"){
         return make(world,{ultimaTecla: "derecha"})
-      }else if(keyCode == processing.LEFT && world.ultimaTecla != "derecha"){
+      }
+       if(keyCode === processing.LEFT && world.ultimaTecla !==  "derecha"){
         return make(world,{ultimaTecla: "izquierda"})
       }else{
         return make(world,{});
@@ -98,12 +103,14 @@ const winOrLose = function(world){
       if (world.ultimaTecla === "izquierda") {
         return make(world, { snake: mapObjX(world.snake,moveLeft) });
       }
+      return make(world,{});
     }
 
     /**
     * Actualiza el mundo en cada tic del reloj. Retorna el nuevo stado del mundo
     */
    processing.onTic = function (world) {
+     console.log(world.ultimaTecla)
     return winOrLose(comer(mover(collision2(OutOfScreenUp(outOfScreenRight(collisionSnake(first(world.snake),world.snake,world)))))));
   }
 
@@ -118,9 +125,12 @@ const winOrLose = function(world){
       }
       let best = function(){
         if(isNaN(parseInt(localStorage.getItem("puntuacion")))){
+          if(localStorage.getItem("nombre")==""){
+            processing.text("Nombre: "+ "" +"      Best score: "+0,30,60)
+          }
           return processing.text("Best score: "+0,30,60)
         }else{
-          return processing.text("Best score: "+parseInt(localStorage.getItem("puntuacion")),30,60)
+          return processing.text("Nombre:  "+localStorage.getItem("nombre")+"     Best score: "+parseInt(localStorage.getItem("puntuacion")),30,60)
         }
       }
       let pintarImg = function (imagen, x, y, width, height) {

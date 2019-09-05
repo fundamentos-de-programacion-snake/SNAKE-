@@ -155,7 +155,7 @@ const movementOutScreenRight = function(world){
  * Cuerpo:
  */
   const OutOfScreenUp = function(world){
-    if(first(world.snake).y<10 && first(world.snake).x>=400 && first(world.snake).x <=445 ){
+    if(first(world.snake).y<10 && first(world.snake).x>=400 && first(world.snake).x <=445 && world.ultimaTecla=="arriba"){
       return movementOutScreenUp(world);
     }else{
       return make(world,{});  
