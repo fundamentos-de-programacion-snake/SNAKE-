@@ -130,11 +130,14 @@ const winOrLose = function(world){
       let best = function(){
         if(isNaN(parseInt(localStorage.getItem("puntuacion")))){
           if(localStorage.getItem("nombre")==""){
-            processing.text("Nombre: "+ "" +"      Best score: "+0,30,60)
+            return processing.text("Name: "+ "" +"      Best score: "+0,30,60)
           }
           return processing.text("Best score: "+0,30,60)
         }else{
-          return processing.text("Nombre:  "+localStorage.getItem("nombre")+"     Best score: "+parseInt(localStorage.getItem("puntuacion")),30,60)
+          if(localStorage.getItem("nombre")==""){
+            return processing.text("Name:  "+ "" +"     Best score: "+parseInt(localStorage.getItem("puntuacion")),30,60)
+          }
+          return processing.text("Name:  "+localStorage.getItem("nombre")+"     Best score: "+parseInt(localStorage.getItem("puntuacion")),30,60)
         }
       }
       let pintarImg = function (imagen, x, y, width, height) {
