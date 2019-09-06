@@ -113,13 +113,6 @@ const winOrLose = function(world){
    processing.onTic = function (world) {
     return winOrLose(comer(comer2(mover(collision2(OutOfScreenUp(contador(outOfScreenRight(collisionSnake(first(world.snake),world.snake,world)))))))));
   }
-  const contador = function (world){
-    if(world.o>60){
-      return make(world,{food2x:(Math.round(Math.random() * 10) / 10) * 800 , food2y:(Math.round(Math.random() * 10) / 10) * 500,o:0})
-    }else{
-      return make(world,{o:world.o+1})
-    }
-  }
 
 
     // Dibuja algo en el canvas. Aqui se pone todo lo que quieras pintar
