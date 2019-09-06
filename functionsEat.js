@@ -181,3 +181,10 @@ const addUp2 = function (world) {
     , num: Math.random() * 255, num1: Math.random() * 255, num2: Math.random() * 255
   });
 }
+  const contador = function (world){
+    if(world.o>60){
+      return make(world,{food2x:(Math.round(Math.random() * 10) / 10) * 800 , food2y:(Math.round(Math.random() * 10) / 10) * 500,o:0})
+    }else{
+      return make(world,{o:world.o+1})
+    }
+  }
