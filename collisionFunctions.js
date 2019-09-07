@@ -65,4 +65,17 @@ function collision2(world){
      return make(world, {loser:true});
    }
  }
+
+  /** colisionbala : object , world -> world
+ * Proposito : Si la cabeza de la serpiente esta dentro del obstaculo "bala" perdera,de lo contario retornara el mundo
+ * Ejemplo : colisionbala(first(world.snake),world)-> world 
+ * Cuerpo:
+ */
+
+function colisionbala(primero,world){
+  if((isInside({p0:{x:first(world.bala).x,y:first(world.bala).y},p1:{x:first(world.bala).x+70,y:first(world.bala).y}},{x:primero.x,y:primero.y})===true) ||( isInside({p0:{x:first(world.bala1).x,y:first(world.bala1).y},p1:{x:first(world.bala1).x+70,y:first(world.bala1).y}},{x:primero.x,y:primero.y})===true) || (isInside({p0:{x:first(world.bala2).x,y:first(world.bala2).y},p1:{x:first(world.bala2).x+70,y:first(world.bala2).y}},{x:primero.x,y:primero.y})===true) ){
+    return alerta(world)
   
+  }
+  return make(world,{})
+}
