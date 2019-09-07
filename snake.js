@@ -10,6 +10,7 @@ let { cons, first, isEmpty, isList, length, rest } = functionalLight;
 /*
 Funciones mover snake
 */
+const probabilidad = 1000;
 const anchoX=990;
 const longitudY=600;
 const cols = (anchoX-10)/10;
@@ -19,8 +20,8 @@ let actualizar = {
   snake: [{ x: 100, y: 100 }], ancho: 10, alto: 10,
   ultimaTecla: "derecha", score: 0,
   foodx: (Math.round(Math.random() * 10) / 10) * 800, foody:(Math.round(Math.random() * 10) / 10) * 500, anchof:10, altof:10
-  , loser: false,food2x:(Math.round(Math.random() * 10) / 10) * 800, food2y:(Math.round(Math.random() * 10) / 10) * 500, ancho2f:10, alto2f:10,o:0
-  
+  , loser: false,food2x:(Math.round(Math.random() * 10) / 10) * 800, food2y:(Math.round(Math.random() * 10) / 10) * 500, ancho2f:10, alto2f:10,o:0,
+  contadorLevel:0, scoreNewFood: 0, level2: false, random: Math.floor(Math.random()*probabilidad)
 };
  
  /**
@@ -67,7 +68,8 @@ const winOrLose = function(world){
         snake: [{ x: 100, y: 100 }], ancho: 10, alto: 10,
         ultimaTecla: "derecha", score: 0,
         foodx: (Math.round(Math.random() * 10) / 10) * 800, foody:(Math.round(Math.random() * 10) / 10) * 500, anchof:10, altof:10
-        , loser: false,food2x:(Math.round(Math.random() * 10) / 10) * 800, food2y:(Math.round(Math.random() * 10) / 10) * 500, ancho2f:10, alto2f:10,o:0
+        , loser: false,food2x:(Math.round(Math.random() * 10) / 10) * 800, food2y:(Math.round(Math.random() * 10) / 10) * 500, ancho2f:10, alto2f:10,o:0,
+        contadorLevel: 0, scoreNewFood:0, level2: false, random: Math.floor(Math.random()*probabilidad)
       };
     }
     /**
@@ -85,11 +87,15 @@ const winOrLose = function(world){
       }
        if(keyCode === processing.LEFT && world.ultimaTecla !==  "derecha"){
         return make(world,{ultimaTecla: "izquierda"})
-      }else{
-        return make(world,{});
       }
+      return make(world,{})
     }
-
+    /**
+     * Contrato: world->world
+     * Propósito: Función que decide en qué dirección dibujar la serpiente dependiendo de la
+     * última tecla.
+     * Cuerpo:
+     */
 
     const mover = function (world) {
       if (world.ultimaTecla === "derecha") {
@@ -111,8 +117,15 @@ const winOrLose = function(world){
     * Actualiza el mundo en cada tic del reloj. Retorna el nuevo stado del mundo
     */
    processing.onTic = function (world) {
-    return winOrLose(comer(comer2(mover(collision2(OutOfScreenUp(contador(outOfScreenRight(collisionSnake(first(world.snake),world.snake,world)))))))));
+     
+    return isItTimeForLevel2(level2(winOrLose(comer(comer2(mover(collision2(OutOfScreenUp(contador(outOfScreenRight(collisionSnake(first(world.snake),world.snake,world)))))))))));
   }
+  /**
+   * Contrato: world -> world
+   * Propósito: Función que cuenta cada cuanto se cambia la posición de la comida bonus.
+   * En éste caso, cada 6 segundos.
+   * Cuerpo: 
+   */
   const contador = function (world){
     if(world.o>60){
       return make(world,{food2x:(Math.round(Math.random() * 10) / 10) * 800 , food2y:(Math.round(Math.random() * 10) / 10) * 500,o:0})
@@ -124,9 +137,21 @@ const winOrLose = function(world){
 
     // Dibuja algo en el canvas. Aqui se pone todo lo que quieras pintar
     processing.drawGame = function (world) {
+      /**
+       * Contrato: objeto {x,y} => Figura en el canvas.
+       * Propósito: función que pinta un objeto con atributos x y y en el canvas.
+       * En éste caso, pinta la serpiente en el canvas.
+       * Cuerpo: 
+       */
       let pintar = function (obj) {
         return processing.rect(obj.x, obj.y, 10, 10) ;
       }
+      /**
+       * Contrato: () => Texto en el canvas.
+       * Propósito: Función que pinta el nombre y el puntaje del mejor jugador hasta el momento.
+       * También verifica los casos "null" ó "undefined" para no mostrarlos en el texto.
+       * Cuerpo:
+       */
       let best = function(){
         if(isNaN(parseInt(localStorage.getItem("puntuacion")))){
           if(localStorage.getItem("nombre")==""){
@@ -140,14 +165,37 @@ const winOrLose = function(world){
           return processing.text("Name:  "+localStorage.getItem("nombre")+"     Best score: "+parseInt(localStorage.getItem("puntuacion")),30,60)
         }
       }
+      /**
+       * Contrato: variable que contenga una imagen, número, número,número,número
+       * Propósito: Función que pinta una imagen en el canvas;
+       * en éste caso, el suelo del juego.
+       * Cuerpo: 
+       */
       let pintarImg = function (imagen, x, y, width, height) {
         return processing.image(imagen, x, y, width, height);
       }
+      /**
+       * Contrato: () => Texto en el canvas.
+       * Propósito: Función que pinta el texto del nivel 2 cuando sea activado y el atributo
+       * del mundo "scoreNewFood" sea 0.
+       * Cuerpo: 
+       */
+      let level2  = function(){
+        if(world.level2==true && world.scoreNewFood==0){
+          return processing.text("Time to get it: "+world.contadorLevel+" Be faster than before.",650,60)
+        }
+      }
+      /**
+       * Contrato: número->número
+       * Propósito: Función que retorna el número dado en el parámetro de la función.
+       * Cuerpo: 
+       */
+      const color = function (num){
+        return num;
+      }
       pintarImg(img1, 0, 0, 990, 600);
-
-     // processing.fill(250, 10, 10);
-      processing.image(img3,world.foodx, world.foody, 13, 13)
-
+      pintarImg(img3,world.foodx,world.foody,13,13);
+    
      processing.fill(Math.random()*255,Math.random()*255,Math.random()*255)
      processing.rect(world.food2x,world.food2y,world.ancho2f,world.alto2f)
       
@@ -159,7 +207,7 @@ const winOrLose = function(world){
       processing.fill(20, 70, 0);
       processing.textFont(processing.PFont,20)
       best();
-
+      level2()
       pintarImg(img2, 180, 130, 30, 330);
       pintarImg(img2, 460, 130, 30, 330);
       pintarImg(img2, 740, 130, 30, 330);
@@ -172,9 +220,7 @@ const winOrLose = function(world){
       mapObj(world.snake, pintar);
     }
     
-    const color = function (num){
-      return num
-    }
+
   
 
 

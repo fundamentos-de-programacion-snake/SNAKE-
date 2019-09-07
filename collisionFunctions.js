@@ -58,7 +58,7 @@ function collision2(world){
   */
 
  function alerta (world){
-   let opcion = confirm("Has muerto.");
+   let opcion = confirm("You have lost.");
    if (opcion == true){
      return make(world, {loser:true});
    }else{
