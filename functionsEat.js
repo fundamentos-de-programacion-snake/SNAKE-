@@ -209,6 +209,13 @@ const addUp2 = function (world) {
     , num: Math.random() * 255, num1: Math.random() * 255, num2: Math.random() * 255,scoreNewFood:1
   });
 }
+/* 
+contador : world -> world
+Proposito : Cuando el contador sea mayor a 60 la comida bonus aparecera en otra posicion y el contador volvera a inciciar
+en cero ,si la condicion aun no es cierta "o" ira aumentando en 1.
+Cuerpo :
+*/
+
   const contador = function (world){
     if(world.o>60){
       return make(world,{food2x:(Math.round(Math.random() * 10) / 10) * 800 , food2y:(Math.round(Math.random() * 10) / 10) * 500,o:0})
