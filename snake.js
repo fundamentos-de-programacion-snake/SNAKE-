@@ -21,7 +21,9 @@ let actualizar = {
   ultimaTecla: "derecha", score: 0,
   foodx: (Math.round(Math.random() * 10) / 10) * 800, foody:(Math.round(Math.random() * 10) / 10) * 500, anchof:10, altof:10
   , loser: false,food2x:(Math.round(Math.random() * 10) / 10) * 800, food2y:(Math.round(Math.random() * 10) / 10) * 500, ancho2f:10, alto2f:10,o:0,
-  contadorLevel:0, scoreNewFood: 0, level2: false, random: Math.floor(Math.random()*probabilidad)
+  contadorLevel:0, scoreNewFood: 0, level2: false, random: Math.floor(Math.random()*probabilidad),bala: [{x:990,y:(Math.round(Math.random() * 10) / 10) * 500}] ,
+  bala1: [{x:990,y:(Math.round(Math.random() * 10) / 10) * 500}],
+  bala2: [{x:990,y:(Math.round(Math.random() * 10) / 10) * 500}],i:0,
 };
  
  /**
@@ -69,7 +71,9 @@ const winOrLose = function(world){
         ultimaTecla: "derecha", score: 0,
         foodx: (Math.round(Math.random() * 10) / 10) * 800, foody:(Math.round(Math.random() * 10) / 10) * 500, anchof:10, altof:10
         , loser: false,food2x:(Math.round(Math.random() * 10) / 10) * 800, food2y:(Math.round(Math.random() * 10) / 10) * 500, ancho2f:10, alto2f:10,o:0,
-        contadorLevel: 0, scoreNewFood:0, level2: false, random: Math.floor(Math.random()*probabilidad)
+        contadorLevel: 0, scoreNewFood:0, level2: false, random: Math.floor(Math.random()*probabilidad),bala: [{x:990,y:100}] ,i:0,
+        bala1: [{x:990,y:250}],
+        bala2: [{x:990,y:500}] ,
       };
     }
     /**
@@ -117,8 +121,8 @@ const winOrLose = function(world){
     * Actualiza el mundo en cada tic del reloj. Retorna el nuevo stado del mundo
     */
    processing.onTic = function (world) {
-     
-    return isItTimeForLevel2(level2(winOrLose(comer(comer2(mover(collision2(OutOfScreenUp(contador(outOfScreenRight(collisionSnake(first(world.snake),world.snake,world)))))))))));
+
+    return isItTimeForLevel2(level2(mover2(winOrLose(comer(comer2(condicion(condicion2(condicion3(contador2(aparecer(mover(collision2(OutOfScreenUp(contador(outOfScreenRight(colisionbala(first(world.snake),collisionSnake(first(world.snake),world.snake,world))))))))))))))))));
   }
 
 
@@ -132,6 +136,15 @@ const winOrLose = function(world){
        */
       let pintar = function (obj) {
         return processing.rect(obj.x, obj.y, 10, 10) ;
+      }
+       /**
+       * Contrato: objeto {x,y} => Figura en el canvas.
+       * Propósito: función que pinta un objeto con atributos x y y en el canvas.
+       * En éste caso, pinta los obstaculos "balas" en el canvas.
+       * Cuerpo: 
+       */
+      let pintar2 = function (obj) {
+        return processing.rect(obj.x, obj.y, 70, 10) ;
       }
       /**
        * Contrato: () => Texto en el canvas.
@@ -205,6 +218,15 @@ const winOrLose = function(world){
   
      processing.fill(color(world.num),color(world.num1),color(world.num2))
       mapObj(world.snake, pintar);
+
+      processing.fill(10,10,10)
+      mapObj(world.bala,pintar2)
+  
+      processing.fill(20,20,20)
+      mapObj(world.bala1,pintar2)
+  
+      processing.fill(40,30,30)
+      mapObj(world.bala2,pintar2)
     }
     
 
@@ -235,6 +257,4 @@ const winOrLose = function(world){
 
   // Adjuntamos nuestro sketch al framework de processing
   var processingInstance = new Processing(canvas, sketchProc);
-
-
 
