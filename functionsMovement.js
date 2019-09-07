@@ -161,3 +161,11 @@ const movementOutScreenRight = function(world){
       return make(world,{});  
     }
   }
+/**
+ * mover2 : world -> world
+ * Proposito : Mover de maneja constante hacia la izquierda los obstaculos "bala"
+ * Ejemplo : mover2(world) -> world
+ */
+  const mover2 = function (world){
+    return make(world, { bala: mapObjX(world.bala,moveLeft),bala1:mapObjX(world.bala1,moveLeft),bala2: mapObjX(world.bala2,moveLeft) });
+  }
