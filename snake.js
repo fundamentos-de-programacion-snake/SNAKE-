@@ -185,7 +185,9 @@ const winOrLose = function(world){
         return num;
       }
       pintarImg(img1, 0, 0, 990, 600);
-      pintarImg(img3,world.foodx,world.foody,13,13);
+      
+     processing.fill(200,0,0)
+     processing.rect(world.foodx,world.foody,10,10)
     
      processing.fill(Math.random()*255,Math.random()*255,Math.random()*255)
      processing.rect(world.food2x,world.food2y,world.ancho2f,world.alto2f)
