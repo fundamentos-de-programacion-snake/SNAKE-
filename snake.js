@@ -184,7 +184,7 @@ const winOrLose = function(world){
       processing.textFont(processing.PFont, 20);
       processing.text("Score: " + world.score, 30, 40);
       processing.rect(990, 0, 10, 10);
-      processing.fill(20, 70, 0);
+      processing.fill(0, 0, 0);
       processing.textFont(processing.PFont,20)
       best();
       level2()
