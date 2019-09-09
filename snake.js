@@ -225,7 +225,8 @@ const winOrLose = function(world){
         processing.text("3) Be careful when the timer comes out, be fast. ", 30, 150);
         processing.text("4) You will lose whether you hit yourself or any border around the screen.", 30, 170);
         processing.text("5) There is bonus food for you to get a longer snake, try to reach it! ", 30, 190);
-        processing.text("6) Just enjoy the small game we have made :). ", 30, 210);
+        processing.text("6) Try to avoid getting hit by the bullets.", 30, 210);
+        processing.text("7) Just enjoy the small game we have made :). ", 30, 230);
         processing.textFont(processing.PFont, 40);
         processing.text("PRESS ANY BUTTON!", 200, 400)
       }

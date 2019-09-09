@@ -205,7 +205,7 @@ Cuerpo :
 */
 
   const contador = function (world){
-    if(world.o>60){
+    if(world.o>80){
       return make(world,{food2x:(Math.round(Math.random() * 10) / 10) * 800 , food2y:(Math.round(Math.random() * 10) / 10) * 500,o:0})
     }else{
       return make(world,{o:world.o+1})

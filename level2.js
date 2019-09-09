@@ -12,7 +12,7 @@
 
 const level2 = function(world){
     if(world.level2==true){
-        if(world.contadorLevel>400){
+        if(world.contadorLevel>360){
             if(world.scoreNewFood==1){
              return make(world,{scoreNewFood:0, contadorLevel:0,random: Math.floor(Math.random()*probabilidad),level2:false});   
             }else{
