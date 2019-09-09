@@ -73,7 +73,7 @@ function collision2(world){
  */
 
 function colisionbala(primero,world){
-  if((isInside({p0:{x:first(world.bala).x+10,y:first(world.bala).y},p1:{x:first(world.bala).x+70,y:first(world.bala).y}},{x:primero.x,y:primero.y})===true) ||( isInside({p0:{x:first(world.bala1).x+10,y:first(world.bala1).y},p1:{x:first(world.bala1).x+70,y:first(world.bala1).y}},{x:primero.x,y:primero.y})===true) || (isInside({p0:{x:first(world.bala2).x-+10,y:first(world.bala2).y},p1:{x:first(world.bala2).x+70,y:first(world.bala2).y}},{x:primero.x,y:primero.y})===true) ){
+  if((isInside({p0:{x:first(world.bala).x+10,y:first(world.bala).y},p1:{x:first(world.bala).x+70,y:first(world.bala).y}},{x:primero.x,y:primero.y})===true) ||( isInside({p0:{x:first(world.bala1).x+10,y:first(world.bala1).y},p1:{x:first(world.bala1).x+70,y:first(world.bala1).y}},{x:primero.x,y:primero.y})===true) || (isInside({p0:{x:first(world.bala2).x+10,y:first(world.bala2).y},p1:{x:first(world.bala2).x+70,y:first(world.bala2).y}},{x:primero.x,y:primero.y})===true) ){
     return alerta(world)
   
   }
