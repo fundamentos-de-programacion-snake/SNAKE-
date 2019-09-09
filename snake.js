@@ -56,7 +56,7 @@ const winOrLose = function(world){
    var img1 = processing.loadImage('pisito.png');
    var img2 = processing.loadImage('maderita.jpg');
    var img3 = processing.loadImage('manzanag.png');
-   var img4 = processing.loadImage('x.jpg');
+   var img4 = processing.loadImage('bala.png');
    var inicio = processing.loadImage('inicio.jpg');
    var over = processing.loadImage('over.jpg');
     /**
@@ -136,7 +136,7 @@ const winOrLose = function(world){
        * Cuerpo: 
        */
       let pintar2 = function (obj) {
-        return processing.image(img4, obj.x, obj.y, 70, 10) ;
+        return processing.image(img4, obj.x, obj.y, 70, 13) ;
       }
       /**
        * Contrato: () => Texto en el canvas.
