@@ -10,7 +10,7 @@ let { cons, first, isEmpty, isList, length, rest } = functionalLight;
 /*
 Funciones mover snake
 */
-const probabilidad = 400;
+const probabilidad = 320;
 const anchoX=990;
 const longitudY=600;
 const cols = (anchoX-10)/10;
@@ -36,7 +36,7 @@ const isBest = function(world){
   if(parseInt(localStorage.getItem("puntuacion"))>=world.score){
     return make(world,actualizar);
   }else{
-    localStorage.setItem("nombre",prompt("Digite su nombre: "))
+    localStorage.setItem("nombre",prompt("You have beaten the current champion! Please enter your name here: "))
     localStorage.setItem("puntuacion",world.score)
     return make(world,actualizar);
   }
@@ -109,7 +109,6 @@ const winOrLose = function(world){
     * Actualiza el mundo en cada tic del reloj. Retorna el nuevo stado del mundo
     */
    processing.onTic = function (world) {
-     console.log(world.score3);
      if(world.inicio==false){
     return isItTimeForLevel2(level2(mover2(winOrLose(comer(comer2(condicion(condicion2(condicion3(contador2(aparecer(mover(collision2(OutOfScreenUp(contador(outOfScreenRight(colisionbala(first(world.snake),collisionSnake(first(world.snake),world.snake,world))))))))))))))))));
      }else{
@@ -214,6 +213,7 @@ const winOrLose = function(world){
       mapObj(world.bala,pintar2)
       mapObj(world.bala1,pintar2)
       mapObj(world.bala2,pintar2)
+      //PANTALLA DE INICIO.
       if (world.inicio == true) {
         pintarImg(inicio, 0, 0, 990, 600);
         processing.textFont(processing.PFont, 80);
@@ -230,6 +230,7 @@ const winOrLose = function(world){
         processing.textFont(processing.PFont, 40);
         processing.text("PRESS ANY BUTTON!", 200, 400)
       }
+      //PANTALLA CUANDO SE PIERDE.
       if (world.loser == true) {
         pintarImg(over, 0, 0, 990, 600);
         processing.textFont(processing.PFont, 50);

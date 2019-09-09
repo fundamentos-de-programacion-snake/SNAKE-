@@ -113,28 +113,8 @@ Cuerpo:
 function make(data, attribute) {
   return Object.assign({}, data, attribute);
 }
-/** Pruebas
- * let anythingObj = make(any1, any2);
- * console.log(anythingObj);
- */
-     /*
-obj: any, any -> object;
-Proposito: Diseñar una funcion que permita introducir dos parametros en un nuevo objeto.
-/** 
- * let obj1 = obj("a",2);
- * let obj2 = obj(3,2);
- 
- Cuerpo:
-*/
-function obj(x, y) {
-  return { x, y }
-}
-/**Pruebas
-* console.log(obj1);
-* console.log(obj2);
-*/
 
-      /*
+/*
 append: list, list-> list;
 Proposito: Diseñar una funcion que permita concatenar dos listas en una nueva lista
 con los elementos de las anteriores.
@@ -155,6 +135,3 @@ function append(x, y) {
   }
 }
 
-/** Pruebas :
- *  console.log (dblo); 
- */
