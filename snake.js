@@ -94,28 +94,7 @@ const winOrLose = function(world){
       }
       return make(world,{})
     }
-    /**
-     * Contrato: world->world
-     * Propósito: Función que decide en qué dirección dibujar la serpiente dependiendo de la
-     * última tecla.
-     * Cuerpo:
-     */
 
-    const mover = function (world) {
-      if (world.ultimaTecla === "derecha") {
-        return make(world, { snake: mapObjX(world.snake,moveRight) });
-      }
-      if (world.ultimaTecla === "arriba") {
-        return make(world, { snake: mapObjY(world.snake,moveUp) });
-      }
-      if (world.ultimaTecla === "abajo") {
-        return make(world, { snake: mapObjY(world.snake,moveDown) });
-      }
-      if (world.ultimaTecla === "izquierda") {
-        return make(world, { snake: mapObjX(world.snake,moveLeft) });
-      }
-      return make(world,{});
-    }
 
     /**
     * Actualiza el mundo en cada tic del reloj. Retorna el nuevo stado del mundo
