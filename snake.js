@@ -56,6 +56,7 @@ const winOrLose = function(world){
    var img1 = processing.loadImage('pisito.png');
    var img2 = processing.loadImage('maderita.jpg');
    var img3 = processing.loadImage('manzanag.png');
+   var img4 = processing.loadImage('x.jpg');
     /**
      * Esto se llama antes de iniciar el juego
      */
@@ -123,7 +124,7 @@ const winOrLose = function(world){
        * Cuerpo: 
        */
       let pintar2 = function (obj) {
-        return processing.rect(obj.x, obj.y, 70, 10) ;
+        return processing.image(img4, obj.x, obj.y, 70, 10) ;
       }
       /**
        * Contrato: () => Texto en el canvas.
@@ -198,13 +199,8 @@ const winOrLose = function(world){
      processing.fill(color(world.num),color(world.num1),color(world.num2))
       mapObj(world.snake, pintar);
 
-      processing.fill(10,10,10)
       mapObj(world.bala,pintar2)
-  
-      processing.fill(20,20,20)
       mapObj(world.bala1,pintar2)
-  
-      processing.fill(40,30,30)
       mapObj(world.bala2,pintar2)
     }
     
