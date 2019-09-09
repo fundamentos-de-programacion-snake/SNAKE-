@@ -134,7 +134,6 @@ una colision con ella.
 Cuerpo:
 */
 const takeAdd2 = function (world) {
-  if (l2({ x: world.food2x, y: world.food2y }, { x: first(world.snake).x, y: first(world.snake).y }) == 0) {
     if (world.ultimaTecla === "izquierda") {
       return addLeft2(world);
     } else if (world.ultimaTecla == "derecha") {
@@ -145,10 +144,7 @@ const takeAdd2 = function (world) {
       return addUp2(world);
     } else {
       return make(world, {});
-    }
-  } else {
-    return make(world, {});
-  }
+    } 
 }
 /*
 addLeft: world -> world;
