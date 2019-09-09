@@ -27,7 +27,7 @@ const addLeft = function (world) {
   return make(world, {
     score: world.score + 10, foodx: posFoodX(), foody: posFoodY(),
     snake: append(world.snake, [{ x: last(world.snake).x + 10, y: last(world.snake).y }])
-    , num: Math.random() * 255, num1: Math.random() * 255, num2: Math.random() * 255
+    , num: Math.random() * 255, num1: Math.random() * 255, num2: Math.random() * 255, score3: world.score3+10
   });
 }
 /*
@@ -40,7 +40,7 @@ const addRight = function (world) {
   return make(world, {
     score: world.score + 10, foodx: posFoodX(), foody: posFoodY(),
     snake: append(world.snake, [{ x: last(world.snake).x - 10, y: last(world.snake).y }])
-    , num: Math.random() * 255, num1: Math.random() * 255, num2: Math.random() * 255
+    , num: Math.random() * 255, num1: Math.random() * 255, num2: Math.random() * 255,score3: world.score3+10
   });
 }
 /*
@@ -53,7 +53,7 @@ const addDown = function (world) {
   return make(world, {
     score: world.score + 10, foodx: posFoodX(), foody: posFoodY(),
     snake: append(world.snake, [{ x: last(world.snake).x, y: last(world.snake).y - 10 }])
-    , num: Math.random() * 255, num1: Math.random() * 255, num2: Math.random() * 255
+    , num: Math.random() * 255, num1: Math.random() * 255, num2: Math.random() * 255, score3: world.score3+10
   });
 }
 /*
@@ -66,7 +66,7 @@ const addUp = function (world) {
   return make(world, {
     score: world.score + 10, foodx: posFoodX(), foody: posFoodY(),
     snake: append(world.snake, [{ x: last(world.snake).x, y: last(world.snake).y + 10 }])
-    , num: Math.random() * 255, num1: Math.random() * 255, num2: Math.random() * 255
+    , num: Math.random() * 255, num1: Math.random() * 255, num2: Math.random() * 255,score3: world.score3+10
   });
 }
 /*
@@ -96,7 +96,6 @@ Proposito: Diseñar una funcion que permita a snake "comer". La funcion compara 
 y la comida es menor a 0 unidades. Si la condicion se cumple, la comida se borra y aparece en otro lugar
 dentro del tablero de juego mediante la funcion takeAdd.
 */
-}
 const comer = function (world) {
   if ((isInside({ p0: { x: 180, y: 130 }, p1: { x: 200, y: 450 } }, { x: world.foodx, y: world.foody }) == true) || (isInside({ p0: { x: 460, y: 130 }, p1: { x: 480, y: 450 } }, { x: world.foodx, y: world.foody }) == true) || (isInside({ p0: { x: 740, y: 130 }, p1: { x: 760, y: 450 } }, { x: world.foodx, y: world.foody }) == true) || (isInside({ p0: { x: 0, y: 0 }, p1: { x: 10, y: 600 } }, { x: world.foodx, y: world.foody }) == true) || (isInside({ p0: { x: 0, y: 0 }, p1: { x: 400, y: 10 } }, { x: world.foodx, y: world.foody }) == true) || (isInside({ p0: { x: 450, y: 0 }, p1: { x: 990, y: 10 } }, { x: world.foodx, y: world.foody }) == true) || (isInside({ p0: { x: 0, y: 590 }, p1: { x: 990, y: 10 } }, { x: world.foodx, y: world.foody }) == true)) {
     return make(world, { foodx: posFoodX(), foody: posFoodY() })
@@ -153,11 +152,10 @@ cuando ésta alcanza la comida yendo por la izquierda.
 Cuerpo:
 */
 const addLeft2 = function (world) {
-  console.log("get: "+world.scoreNewFood)
   return make(world, {
     score: world.score + 20, food2x: posFoodX(), food2y: posFoodY(),foodx: posFoodX(), foody: posFoodY(),
     snake: append(append(world.snake, [{ x: last(world.snake).x + 10, y: last(world.snake).y }]),[{ x: last(world.snake).x + 10, y: last(world.snake).y }])
-    , num: Math.random() * 255, num1: Math.random() * 255, num2: Math.random() * 255, scoreNewFood:1 
+    , num: Math.random() * 255, num1: Math.random() * 255, num2: Math.random() * 255, scoreNewFood:1,score3: world.score3+20
   });
 }
 /*
@@ -167,11 +165,10 @@ cuando ésta alcanza la comida yendo por la derecha.
 Cuerpo:
 */
 const addRight2 = function (world) {
-  console.log("get: "+world.scoreNewFood)
   return make(world, {
     score: world.score + 20, food2x: posFoodX(), food2y: posFoodY(),foodx: posFoodX(), foody: posFoodY(),
     snake: append(append(world.snake, [{ x: last(world.snake).x - 10, y: last(world.snake).y }]),[{ x: last(world.snake).x - 10, y: last(world.snake).y }])
-    , num: Math.random() * 255, num1: Math.random() * 255, num2: Math.random() * 255,scoreNewFood:1
+    , num: Math.random() * 255, num1: Math.random() * 255, num2: Math.random() * 255,scoreNewFood:1,score3: world.score3+20
   });
 }
 /*
@@ -181,11 +178,10 @@ cuando ésta alcanza la comida yendo por abajo.
 Cuerpo:
 */
 const addDown2 = function (world) {
-  console.log("get: "+world.scoreNewFood)
   return make(world, {
     score: world.score + 20, food2x: posFoodX(), food2y: posFoodY(),foodx: posFoodX(), foody: posFoodY(),
     snake: append(append(world.snake, [{ x: last(world.snake).x, y: last(world.snake).y - 10}]),[{ x: last(world.snake).x, y: last(world.snake).y - 10}])
-    , num: Math.random() * 255, num1: Math.random() * 255, num2: Math.random() * 255,scoreNewFood:1
+    , num: Math.random() * 255, num1: Math.random() * 255, num2: Math.random() * 255,scoreNewFood:1,score3: world.score3+20
   });
 }
 /*
@@ -195,11 +191,10 @@ cuando ésta alcanza la comida yendo por arriba.
 Cuerpo:
 */
 const addUp2 = function (world) {
-  console.log("get: "+world.scoreNewFood)
   return make(world, {
     score: world.score + 20, food2x: posFoodX(), food2y: posFoodY(),foodx: posFoodX(), foody: posFoodY(),
     snake: append(append(world.snake, [{ x: last(world.snake).x, y: last(world.snake).y + 10 }]), [{ x: last(world.snake).x, y: last(world.snake).y + 10 }])
-    , num: Math.random() * 255, num1: Math.random() * 255, num2: Math.random() * 255,scoreNewFood:1
+    , num: Math.random() * 255, num1: Math.random() * 255, num2: Math.random() * 255,scoreNewFood:1,score3: world.score3+20
   });
 }
 /* 

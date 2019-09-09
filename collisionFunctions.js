@@ -10,7 +10,7 @@ Cuerpo: */
        return make(world,{});
       }else{
         if((primero.x == first(rest(list)).x) && (primero.y == first(rest(list)).y)){
-          return alerta(world);
+          return make(world,{loser: true})
       }else{
         return collisionSnake(primero,rest(list),world);
       }
@@ -40,10 +40,10 @@ function collision2(world){
     if( (isInside({p0:{x:180,y:130},p1:{x:200,y:450}},{x:first(world.snake).x , y:first(world.snake).y}) != true) && (isInside({p0:{x:460,y:130},p1:{x:480,y:450}},{x:first(world.snake).x , y:first(world.snake).y}) != true) && (isInside({p0:{x:740,y:130},p1:{x:760,y:450}},{x:first(world.snake).x , y:first(world.snake).y}) != true)){
       return make(world,{});
     }else{
-      return alerta(world);
+      return make(world,{loser: true})
     }
   }else{
-      return alerta(world);
+      return make(world,{loser: true})
   }
 }
 /** Pruebas
@@ -56,7 +56,7 @@ function collision2(world){
   * seleccione una opción.
   * Cuerpo:
   */
-
+/*
  function alerta (world){
    let opcion = confirm("You have lost.");
    if (opcion == true){
@@ -65,6 +65,7 @@ function collision2(world){
      return make(world, {loser:true});
    }
  }
+ */
 
   /** colisionbala : object , world -> world
  * Proposito : Si la cabeza de la serpiente esta dentro del obstaculo "bala" perdera,de lo contario retornara el mundo
@@ -74,7 +75,7 @@ function collision2(world){
 
 function colisionbala(primero,world){
   if((isInside({p0:{x:first(world.bala).x+10,y:first(world.bala).y},p1:{x:first(world.bala).x+70,y:first(world.bala).y}},{x:primero.x,y:primero.y})===true) ||( isInside({p0:{x:first(world.bala1).x+10,y:first(world.bala1).y},p1:{x:first(world.bala1).x+70,y:first(world.bala1).y}},{x:primero.x,y:primero.y})===true) || (isInside({p0:{x:first(world.bala2).x+10,y:first(world.bala2).y},p1:{x:first(world.bala2).x+70,y:first(world.bala2).y}},{x:primero.x,y:primero.y})===true) ){
-    return alerta(world)
+    return make(world,{loser: true})
   
   }
   return make(world,{})

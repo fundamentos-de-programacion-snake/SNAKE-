@@ -10,7 +10,7 @@ let { cons, first, isEmpty, isList, length, rest } = functionalLight;
 /*
 Funciones mover snake
 */
-const probabilidad = 1000;
+const probabilidad = 400;
 const anchoX=990;
 const longitudY=600;
 const cols = (anchoX-10)/10;
@@ -20,10 +20,10 @@ let actualizar = {
   snake: [{ x: 100, y: 100 }], ancho: 10, alto: 10,
   ultimaTecla: "derecha", score: 0,
   foodx: (Math.round(Math.random() * 10) / 10) * 800, foody:(Math.round(Math.random() * 10) / 10) * 500, anchof:10, altof:10
-  , loser: false,food2x:(Math.round(Math.random() * 10) / 10) * 800, food2y:(Math.round(Math.random() * 10) / 10) * 500, ancho2f:10, alto2f:10,o:0,
+  , loser: true,food2x:(Math.round(Math.random() * 10) / 10) * 800, food2y:(Math.round(Math.random() * 10) / 10) * 500, ancho2f:10, alto2f:10,o:0,
   contadorLevel:0, scoreNewFood: 0, level2: false, random: Math.floor(Math.random()*probabilidad),bala: [{x:990,y:(Math.round(Math.random() * 10) / 10) * 500}] ,
   bala1: [{x:990,y:(Math.round(Math.random() * 10) / 10) * 500}],
-  bala2: [{x:990,y:(Math.round(Math.random() * 10) / 10) * 500}],i:0,
+  bala2: [{x:990,y:(Math.round(Math.random() * 10) / 10) * 500}],i:0, inicio: false
 };
  
  /**
@@ -57,6 +57,8 @@ const winOrLose = function(world){
    var img2 = processing.loadImage('maderita.jpg');
    var img3 = processing.loadImage('manzanag.png');
    var img4 = processing.loadImage('x.jpg');
+   var inicio = processing.loadImage('inicio.jpg');
+   var over = processing.loadImage('over.jpg');
     /**
      * Esto se llama antes de iniciar el juego
      */
@@ -69,12 +71,12 @@ const winOrLose = function(world){
        num1: 0,
        num2 : 50,
         snake: [{ x: 100, y: 100 }], ancho: 10, alto: 10,
-        ultimaTecla: "derecha", score: 0,
+        ultimaTecla: "", score: 0,
         foodx: (Math.round(Math.random() * 10) / 10) * 800, foody:(Math.round(Math.random() * 10) / 10) * 500, anchof:10, altof:10
         , loser: false,food2x:(Math.round(Math.random() * 10) / 10) * 800, food2y:(Math.round(Math.random() * 10) / 10) * 500, ancho2f:10, alto2f:10,o:0,
         contadorLevel: 0, scoreNewFood:0, level2: false, random: Math.floor(Math.random()*probabilidad),bala: [{x:990,y:100}] ,i:0,
         bala1: [{x:990,y:250}],
-        bala2: [{x:990,y:500}] ,
+        bala2: [{x:990,y:500}], inicio: true, score3: 0
       };
     }
     /**
@@ -93,6 +95,12 @@ const winOrLose = function(world){
        if(keyCode === processing.LEFT && world.ultimaTecla !==  "derecha"){
         return make(world,{ultimaTecla: "izquierda"})
       }
+      if(world.ultimaTecla==""){
+        return make(world,{inicio:false, ultimaTecla: "derecha"})
+      }
+      if(world.loser == true){
+        return make(world,{inicio: false, ultimaTecla: "derecha",loser: false,score3:0});
+      }
       return make(world,{})
     }
 
@@ -101,8 +109,12 @@ const winOrLose = function(world){
     * Actualiza el mundo en cada tic del reloj. Retorna el nuevo stado del mundo
     */
    processing.onTic = function (world) {
-
+     console.log(world.score3);
+     if(world.inicio==false){
     return isItTimeForLevel2(level2(mover2(winOrLose(comer(comer2(condicion(condicion2(condicion3(contador2(aparecer(mover(collision2(OutOfScreenUp(contador(outOfScreenRight(colisionbala(first(world.snake),collisionSnake(first(world.snake),world.snake,world))))))))))))))))));
+     }else{
+       return make(world,{});
+     }
   }
 
 
@@ -202,6 +214,38 @@ const winOrLose = function(world){
       mapObj(world.bala,pintar2)
       mapObj(world.bala1,pintar2)
       mapObj(world.bala2,pintar2)
+      if (world.inicio == true) {
+        pintarImg(inicio, 0, 0, 990, 600);
+        processing.textFont(processing.PFont, 80);
+        processing.text("Welcome!", 340, 70)
+        processing.textFont(processing.PFont, 20);
+        processing.text("Rules for playing well: ", 100, 90)
+        processing.text("1) Get as many pieces of food as you can. ", 30, 110);
+        processing.text("2) Do not press two buttons at the same time. ", 30, 130);
+        processing.text("3) Be careful when the timer comes out, be fast. ", 30, 150);
+        processing.text("4) You will lose whether you hit yourself or any border around the screen.", 30, 170);
+        processing.text("5) There is bonus food for you to get a longer snake, try to reach it! ", 30, 190);
+        processing.text("6) Just enjoy the small game we have made :). ", 30, 210);
+        processing.textFont(processing.PFont, 40);
+        processing.text("PRESS ANY BUTTON!", 200, 400)
+      }
+      if (world.loser == true) {
+        pintarImg(over, 0, 0, 990, 600);
+        processing.textFont(processing.PFont, 50);
+        processing.fill(20, 70, 0);
+        processing.text("Oh no! You just lost :( ", 250, 70);
+        if(parseInt(localStorage.getItem("puntuacion"))>world.score3){
+          processing.textFont(processing.PFont, 25);
+          processing.text("You did not beat the current champion, here is your last score: "+world.score3,150,160);
+          processing.textFont(processing.PFont,20)
+          processing.text("Do not worry about it, just try again by pressing any button :)", 200, 220);
+        }else{
+          processing.textFont(processing.PFont, 25);
+          processing.text("You just beat the current champion! You are oustanding!: "+world.score3,150,160);
+          processing.textFont(processing.PFont,20)
+          processing.text("Try again by pressing any button :)", 300, 220);
+        }
+      }
     }
     
 

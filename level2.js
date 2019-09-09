@@ -16,7 +16,7 @@ const level2 = function(world){
             if(world.scoreNewFood==1){
              return make(world,{scoreNewFood:0, contadorLevel:0,random: Math.floor(Math.random()*probabilidad),level2:false});   
             }else{
-             return alerta(world); 
+             return make(world,{loser: true}); 
             }
         }else{
             if(world.scoreNewFood==1){
@@ -36,7 +36,7 @@ const level2 = function(world){
  * que toma su valor de Math.random()
  */
 const isItTimeForLevel2 = function(world){
-    if(world.score>=10 && world.random == 20){
+    if(world.score>=90 && world.random == 20){
         return make(world,{level2:true})
     }else{
         return make(world,{random: Math.floor(Math.random()*probabilidad)})
