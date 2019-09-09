@@ -78,21 +78,18 @@ una colision con ella.
 Cuerpo:
 */
 const takeAdd = function (world) {
-  if (l2({ x: world.foodx, y: world.foody }, { x: first(world.snake).x, y: first(world.snake).y }) == 0) {
-    if (world.ultimaTecla === "izquierda") {
-      return addLeft(world);
-    } else if (world.ultimaTecla == "derecha") {
-      return addRight(world);
-    } else if (world.ultimaTecla == "abajo") {
-      return addDown(world);
-    } else if (world.ultimaTecla == "arriba") {
-      return addUp(world);
-    } else {
-      return make(world, {});
-    }
+  if (world.ultimaTecla === "izquierda") {
+    return addLeft(world);
+  } else if (world.ultimaTecla == "derecha") {
+    return addRight(world);
+  } else if (world.ultimaTecla == "abajo") {
+    return addDown(world);
+  } else if (world.ultimaTecla == "arriba") {
+    return addUp(world);
   } else {
     return make(world, {});
   }
+}
   /*
 Comer: world -> world;
 Proposito: Diseñar una funcion que permita a snake "comer". La funcion compara si la distancia entre snake
