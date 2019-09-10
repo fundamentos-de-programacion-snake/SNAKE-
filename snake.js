@@ -13,8 +13,6 @@ Funciones mover snake
 const probabilidad = 320;
 const anchoX=990;
 const longitudY=600;
-const cols = (anchoX-10)/10;
-const rows = (longitudY-20)/10
 let actualizar = {
   //color :250,
   snake: [{ x: 100, y: 100 }], ancho: 10, alto: 10,
@@ -56,7 +54,7 @@ const winOrLose = function(world){
    var img1 = processing.loadImage('pisito.png');
    var img2 = processing.loadImage('maderita.jpg');
    var img3 = processing.loadImage('manzanag.png');
-   var img4 = processing.loadImage('x.jpg');
+   var img4 = processing.loadImage('bala.png');
    var inicio = processing.loadImage('inicio.jpg');
    var over = processing.loadImage('over.jpg');
     /**
@@ -135,7 +133,7 @@ const winOrLose = function(world){
        * Cuerpo: 
        */
       let pintar2 = function (obj) {
-        return processing.image(img4, obj.x, obj.y, 70, 10) ;
+        return processing.image(img4, obj.x, obj.y, 70, 13) ;
       }
       /**
        * Contrato: () => Texto en el canvas.
@@ -228,7 +226,10 @@ const winOrLose = function(world){
         processing.text("4) You will lose whether you hit yourself or any border around the screen.", 30, 170);
         processing.text("5) There is bonus food for you to get a longer snake, try to reach it! ", 30, 190);
         processing.text("6) Try to avoid getting hit by the bullets.", 30, 210);
-        processing.text("7) Just enjoy the small game we have made :). ", 30, 230);
+        processing.text("7) You will use the arrows to control the snake's movement.", 30, 230);
+        processing.text("8) Each time you reach a piece of food your current score will increase by 10.", 30, 250);
+        processing.text("9) Also, if you get a piece of the bonus food your current score will increase by 20. ", 30, 270);
+        processing.text("9) Finally, just enjoy the small game we have made. :) ", 30, 290);
         processing.textFont(processing.PFont, 40);
         processing.text("PRESS ANY BUTTON!", 200, 400)
       }
@@ -245,7 +246,7 @@ const winOrLose = function(world){
           processing.text("Do not worry about it, just try again by pressing any button :)", 200, 220);
         }else{
           processing.textFont(processing.PFont, 25);
-          processing.text("You just beat the current champion! You are oustanding!: "+world.score3,150,160);
+          processing.text("You just beat the current champion! You are outstanding!: "+world.score3,150,160);
           processing.textFont(processing.PFont,20)
           processing.text("Try again by pressing any button :)", 300, 220);
         }
