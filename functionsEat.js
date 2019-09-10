@@ -20,7 +20,7 @@ const posFoodY = function () {
 /*
 addLeft: world -> world;
 Proposito: Función que agrega un cuadro con posiciones x y y en el último índice de la serpiente
-cuando ésta alcanza la comida yendo por la derecha.
+cuando ésta alcanza la comida yendo por la izquierda.
 Cuerpo:
 */
 const addLeft = function (world) {
@@ -200,7 +200,7 @@ const addUp2 = function (world) {
 /* 
 contador : world -> world
 Proposito : Cuando el contador sea mayor a 60 la comida bonus aparecera en otra posicion y el contador volvera a inciciar
-en cero ,si la condicion aun no es cierta "o" ira aumentando en 1.
+en cero ,si la condicion aun no es cierta ira aumentando en 1.
 Cuerpo :
 */
 
