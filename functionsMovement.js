@@ -1,7 +1,7 @@
 /**
  * Diseñar una funcion que permita a la serpiente empezar a moverse
  * hacia la derecha en un espacio bidimensional.
- * @param {world} world 
+ * @param {list} world 
  * @returns {number}
  * @example moveRight (snake) -> snake.x = 20.
  */
@@ -12,7 +12,7 @@ const moveRight = function (world) {
 /**
  * Diseñar una funcion que permita a la serpiente empezar a moverse
  * hacia arriba en un espacio bidimensional.
- * @param {world} world 
+ * @param {list} world 
  * @returns {number}
  * @example moveUp (snake) -> snake.y = 0.
  */
@@ -23,7 +23,7 @@ const moveUp = function (world) {
 /**
  * Diseñar una funcion que permita a la serpiente empezar a moverse
  * hacia abajo en un espacio bidimensional.
- * @param {world} world 
+ * @param {list} world 
  * @returns {number}
  * @example moveDown (snake) -> snake.y = 20.
  */
@@ -34,7 +34,7 @@ const moveDown = function (world) {
 /**
  * Proposito: Diseñar una funcion que permita a la serpiente empezar a moverse
  * hacia la izquierda en un espacio bidimensional.
- * @param {world} world 
+ * @param {list} world 
  * @returns {number}
  * @example moveLeft (snake) -> snake.x = 0
  */
