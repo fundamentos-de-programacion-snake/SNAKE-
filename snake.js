@@ -76,15 +76,19 @@ function sketchProc(processing) {
   */
   processing.onKeyEvent = function (world, keyCode) {
     if (keyCode === processing.UP && world.ultimaTecla !== 'abajo') {
+      processing.frameRate(22)
       return make(world, { ultimaTecla: 'arriba' })
     }
     if (keyCode === processing.DOWN && world.ultimaTecla !== "arriba") {
+      processing.frameRate(22)
       return make(world, { ultimaTecla: 'abajo' })
     }
     if (keyCode === processing.RIGHT && world.ultimaTecla !== "izquierda") {
+      processing.frameRate(22)
       return make(world, { ultimaTecla: "derecha" })
     }
     if (keyCode === processing.LEFT && world.ultimaTecla !== "derecha") {
+      processing.frameRate(22)
       return make(world, { ultimaTecla: "izquierda" })
     }
     if (world.ultimaTecla == "") {
