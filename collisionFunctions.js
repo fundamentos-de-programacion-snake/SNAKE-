@@ -23,18 +23,8 @@ const collisionSnake = function (primero, list, world) {
 }
 
 /**
- * Diseñar una funcion que reciba mundo y permita determinar las collisiones del objeto "snake" con los limites internos del mismo. 
- *  Para definir funciones de movimiento es necesario primero definir el mundo a trabajar:
- * 
- * processing.draw = function () {
- *    *Dibuja el fondo.
- *   processing.drawGame = function (world) {
- *   processing.background(10, 200, 50);
- *   processing.fill(240, 240, 240);
- *   processing.rect(200, 200, 200, 200);
- *       }
- *  }
- * 
+ * Diseñar una funcion que reciba mundo y permita determinar las collisiones del objeto "snake" con los limites 
+ * internos del mismo. 
  * @param {world} world 
  * @returns {world}
  */
